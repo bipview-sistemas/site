@@ -1,6 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://bipview.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://bipview.com/privacidade</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://bipview.com/excluir-conta</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://bipview.com/pt/index.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://bipview.com/pt/index.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bipview.com/es/index.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bipview.com/en/index.html"/>
+  </url>
+  <url>
+    <loc>https://bipview.com/pt/privacidade.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://bipview.com/pt/privacidade.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bipview.com/es/privacidade.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bipview.com/en/privacidade.html"/>
+  </url>
+  <url>
+    <loc>https://bipview.com/pt/excluir-conta.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://bipview.com/pt/excluir-conta.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bipview.com/es/excluir-conta.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bipview.com/en/excluir-conta.html"/>
+  </url>
+  <url>
+    <loc>https://bipview.com/es/index.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://bipview.com/pt/index.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bipview.com/es/index.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bipview.com/en/index.html"/>
+  </url>
+  <url>
+    <loc>https://bipview.com/es/privacidade.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://bipview.com/pt/privacidade.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bipview.com/es/privacidade.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bipview.com/en/privacidade.html"/>
+  </url>
+  <url>
+    <loc>https://bipview.com/es/excluir-conta.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://bipview.com/pt/excluir-conta.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bipview.com/es/excluir-conta.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bipview.com/en/excluir-conta.html"/>
+  </url>
+  <url>
+    <loc>https://bipview.com/en/index.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://bipview.com/pt/index.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bipview.com/es/index.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bipview.com/en/index.html"/>
+  </url>
+  <url>
+    <loc>https://bipview.com/en/privacidade.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://bipview.com/pt/privacidade.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bipview.com/es/privacidade.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bipview.com/en/privacidade.html"/>
+  </url>
+  <url>
+    <loc>https://bipview.com/en/excluir-conta.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://bipview.com/pt/excluir-conta.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bipview.com/es/excluir-conta.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bipview.com/en/excluir-conta.html"/>
+  </url>
 </urlset>
