@@ -19,6 +19,147 @@ main .wrap h3{color:var(--neutro);opacity:.95}
 main .wrap ul,main .wrap ol{padding-left:20px}
 main .wrap a{color:#7FA9FF}
 </style>
+<!-- BIPVIEW-MEDICAO -->
+<!--
+  BIPVIEW · bloco de medição com consentimento — para o <head> do site e das LPs
+  ============================================================================
+  Escrito em 08/09/2026. Ordem obrigatória, e é ela que faz a coisa ser legal:
+
+    1) Consent Mode v2 com TUDO NEGADO por padrão   (antes de qualquer tag)
+    2) a tag do Google (gtag.js), que respeita o item 1 e não grava cookie enquanto negado
+    3) o snippet do CMP (AdOpt), que mostra o banner e atualiza o Consent Mode sozinha
+    4) nós escutamos essa atualização no dataLayer e, se "analíticos" foi aceito, carregamos
+       o Microsoft Clarity (o GA4 obedece ao Consent Mode por conta própria)
+
+  Sem aceite, nada é gravado: o gtag fica em modo negado (sem cookie, sem identificador) e o
+  Clarity nem chega a ser baixado. É o que a ANPD chama de "desativar cookies baseados no
+  consentimento por padrão", e o que a nossa política de privacidade vai declarar.
+
+  O QUE PREENCHER ANTES DE PUBLICAR:
+    · ID_CLARITY  — sai de clarity.microsoft.com › Settings › Overview (10 caracteres)
+    · o <script> da AdOpt — sai do painel dela, em Instalação (é o ADOPT_SNIPPET do mkt.env)
+
+  Já preenchido: o ID de medição do GA4 (G-GNWHTXJ1Z2), propriedade "BipView site",
+  fluxo "Site" (15742019406), criada em 08/09/2026.
+-->
+
+<!-- 1) Consent Mode v2 — negado por padrão, para todo mundo, não só para a Europa -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'analytics_storage': 'denied',
+    'functionality_storage': 'granted',   // idioma e preferência de consentimento: são necessários
+    'personalization_storage': 'denied',
+    'security_storage': 'granted',
+    'wait_for_update': 2000
+  });
+  gtag('set', 'ads_data_redaction', true);
+  gtag('set', 'url_passthrough', true);   // mantém utm_* na navegação sem depender de cookie
+</script>
+
+<!-- 2) a tag do Google -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GNWHTXJ1Z2"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-GNWHTXJ1Z2', { 'anonymize_ip': true });
+</script>
+
+<!-- 3) o CMP (AdOpt) — cole aqui o snippet do painel; ele desenha o banner -->
+<meta name="adopt-website-id" content="94ceaa98-667a-4c2e-b859-d08d61bc546b" /><script src="//tag.goadopt.io/injector.js?website_code=94ceaa98-667a-4c2e-b859-d08d61bc546b" class="adopt-injector"></script>
+
+<!-- 4) a ponte: como sabemos que o visitante aceitou, SEM depender de callback
+     ---------------------------------------------------------------------------
+     O callback e os webhooks da AdOpt só existem no plano Enterprise (US$ 75/mês; conferido no
+     painel em 08/09). No plano Business (US$ 15) o que temos é o Consent Mode: a AdOpt é CMP
+     certificada pelo Google e, quando a pessoa escolhe, ela mesma empurra um
+     `gtag('consent','update', {...})` no dataLayer. O GA4 obedece sozinho.
+
+     Então não precisamos de callback: basta ESCUTAR o dataLayer. É isso que o código abaixo faz —
+     e funciona com qualquer CMP que implemente Consent Mode, não só com a AdOpt. Se um dia
+     trocarmos de fornecedor, esta parte continua valendo. -->
+<script>
+(function () {
+  var CLARITY_ID = 'yf8fwiw7ye';        // preencher com o código do projeto (10 caracteres)
+  var carregado = false;
+
+  function carregarClarity() {
+    if (carregado || !CLARITY_ID || CLARITY_ID.indexOf('ID_') === 0) return;
+    carregado = true;
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", CLARITY_ID);
+    window.clarity('consent');          // o Clarity só passa a gravar depois desta linha
+  }
+
+  // reconhece o "aceitei analíticos" em qualquer formato que o CMP empurre no dataLayer
+  function aceitouAnaliticos(item) {
+    try {
+      if (!item) return false;
+      if (item[0] === 'consent' && item[1] === 'update' && item[2])
+        return item[2].analytics_storage === 'granted';
+      if (item.event === 'consent_update' || item.event === 'adopt_consent')
+        return item.analytics_storage === 'granted' || item.analytics === true;
+    } catch (e) {}
+    return false;
+  }
+
+  window.dataLayer = window.dataLayer || [];
+  // o que já foi empurrado antes deste script
+  for (var i = 0; i < window.dataLayer.length; i++)
+    if (aceitouAnaliticos(window.dataLayer[i])) carregarClarity();
+  // o que vier depois: envelopamos o push, sem quebrar o comportamento original
+  var pushOriginal = window.dataLayer.push;
+  window.dataLayer.push = function () {
+    var r = pushOriginal.apply(this, arguments);
+    for (var i = 0; i < arguments.length; i++)
+      if (aceitouAnaliticos(arguments[i])) carregarClarity();
+    return r;
+  };
+
+  // porta de serviço: dá para liberar à mão no console, para testar sem clicar no banner
+  window.bipviewConsentimento = function (ok) {
+    gtag('consent', 'update', { 'analytics_storage': ok ? 'granted' : 'denied' });
+    if (ok) carregarClarity();
+  };
+})();
+</script>
+
+<!-- 5) os dois eventos que o funil precisa (o resto vem da medição otimizada do GA4) -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  // clique no botão da loja: quem chegou até o fim da página e foi instalar
+  document.querySelectorAll('[data-loja]').forEach(function (a) {
+    a.addEventListener('click', function () {
+      var q = new URLSearchParams(location.search);
+      gtag('event', 'clique_loja', {
+        loja: a.getAttribute('data-loja') || 'android',
+        parceiro: q.get('utm_source') || 'organico',
+        canal: q.get('utm_medium') || 'direto',
+        campanha: q.get('utm_campaign') || ''
+      });
+    });
+  });
+  // envio do formulário de e-mail: o lead
+  document.querySelectorAll('form[data-lead], .cta form').forEach(function (f) {
+    f.addEventListener('submit', function () {
+      var q = new URLSearchParams(location.search);
+      gtag('event', 'lead_enviado', {
+        parceiro: q.get('utm_source') || 'organico',
+        canal: q.get('utm_medium') || 'direto',
+        campanha: q.get('utm_campaign') || ''
+      });
+    });
+  });
+});
+</script>
+
+<!-- /BIPVIEW-MEDICAO -->
 
     <link rel="alternate" hreflang="pt" href="https://bipview.com/pt/termos.html">
     <link rel="alternate" hreflang="es" href="https://bipview.com/es/termos.html">
