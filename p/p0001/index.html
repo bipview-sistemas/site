@@ -148,15 +148,27 @@ footer a{color:var(--fraco)}
   window.dataLayer = window.dataLayer || [];
   // o que já foi empurrado antes deste script
   for (var i = 0; i < window.dataLayer.length; i++)
-    if (aceitouAnaliticos(window.dataLayer[i])) carregarClarity();
+    if (aceitouAnaliticos(window.dataLayer[i])) { carregarClarity(); setTimeout(negarAnuncios, 0); }
   // o que vier depois: envelopamos o push, sem quebrar o comportamento original
   var pushOriginal = window.dataLayer.push;
   window.dataLayer.push = function () {
     var r = pushOriginal.apply(this, arguments);
     for (var i = 0; i < arguments.length; i++)
-      if (aceitouAnaliticos(arguments[i])) carregarClarity();
+      if (aceitouAnaliticos(arguments[i])) { carregarClarity(); setTimeout(negarAnuncios, 0); }
     return r;
   };
+
+  // A BipView nao veicula anuncios. O "aceitar todos" do CMP concede as categorias de anuncio por
+  // padrao; aqui elas voltam a 'denied' sempre. E o que a nossa Politica de Cookies promete, e
+  // nao perdemos nada: nao existe tag de anuncio no site.
+  function negarAnuncios() {
+    gtag('consent', 'update', {
+      'ad_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'personalization_storage': 'denied'
+    });
+  }
 
   // porta de serviço: dá para liberar à mão no console, para testar sem clicar no banner
   window.bipviewConsentimento = function (ok) {
