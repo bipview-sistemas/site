@@ -9,7 +9,7 @@
 <meta property="og:description" content="Seu portfólio cripto consolidado, em tempo real, somente leitura. Pessoa física e escritórios.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://bipview.com/">
-<meta name="theme-color" content="#020426">
+<meta name="theme-color" content="#0a0b0d">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 197.18 114.87'%%3E%%3Crect width='197.18' height='114.87' fill='%%23020426'/%%3E%%3C/svg%%3E">
 <link rel="stylesheet" href="/estilo.css">
 <style>
@@ -17,9 +17,11 @@ main .wrap h1, main .wrap h2, main .wrap h3{text-transform:none;letter-spacing:0
 main .wrap h2{margin-top:44px;color:#fff}
 main .wrap h3{color:var(--neutro);opacity:.95}
 main .wrap ul,main .wrap ol{padding-left:20px}
-main .wrap a{color:#7FA9FF}
+main .wrap a{color:#6fa8ff}
 </style>
-<!-- BIPVIEW-MEDICAO -->
+<!-- BIPVIEW-MEDICAO modo=nenhuma gerado=2026-09-27 por=site/medicao.py — NAO EDITAR A MAO -->
+
+<!-- 1) Consent Mode v2 — negado por padrão, para todo mundo, antes de qualquer tag -->
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -28,111 +30,18 @@ main .wrap a{color:#7FA9FF}
     'ad_user_data': 'denied',
     'ad_personalization': 'denied',
     'analytics_storage': 'denied',
-    'functionality_storage': 'granted',   // idioma e preferência de consentimento: são necessários
+    'functionality_storage': 'granted',
     'personalization_storage': 'denied',
     'security_storage': 'granted',
     'wait_for_update': 2000
   });
   gtag('set', 'ads_data_redaction', true);
-  gtag('set', 'url_passthrough', true);   // mantém utm_* na navegação sem depender de cookie
+  gtag('set', 'url_passthrough', true);
 </script>
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-GNWHTXJ1Z2"></script>
-<script>
-  gtag('js', new Date());
-  gtag('config', 'G-GNWHTXJ1Z2', { 'anonymize_ip': true });
-</script>
-
+<!-- 3) o CMP (AdOpt) — desenha o banner e empurra o consent update no dataLayer -->
 <meta name="adopt-website-id" content="94ceaa98-667a-4c2e-b859-d08d61bc546b" /><script src="//tag.goadopt.io/injector.js?website_code=94ceaa98-667a-4c2e-b859-d08d61bc546b" class="adopt-injector"></script>
 
-<script>
-(function () {
-  var CLARITY_ID = 'yf8fwiw7ye';        // preencher com o código do projeto (10 caracteres)
-  var carregado = false;
-
-  function carregarClarity() {
-    if (carregado || !CLARITY_ID || CLARITY_ID.indexOf('ID_') === 0) return;
-    carregado = true;
-    (function(c,l,a,r,i,t,y){
-      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", CLARITY_ID);
-    window.clarity('consent');          // o Clarity só passa a gravar depois desta linha
-  }
-
-  // reconhece o "aceitei analíticos" em qualquer formato que o CMP empurre no dataLayer
-  function aceitouAnaliticos(item) {
-    try {
-      if (!item) return false;
-      if (item[0] === 'consent' && item[1] === 'update' && item[2])
-        return item[2].analytics_storage === 'granted';
-      if (item.event === 'consent_update' || item.event === 'adopt_consent')
-        return item.analytics_storage === 'granted' || item.analytics === true;
-    } catch (e) {}
-    return false;
-  }
-
-  window.dataLayer = window.dataLayer || [];
-  // o que já foi empurrado antes deste script
-  for (var i = 0; i < window.dataLayer.length; i++)
-    if (aceitouAnaliticos(window.dataLayer[i])) { carregarClarity(); setTimeout(negarAnuncios, 0); }
-  // o que vier depois: envelopamos o push, sem quebrar o comportamento original
-  var pushOriginal = window.dataLayer.push;
-  window.dataLayer.push = function () {
-    var r = pushOriginal.apply(this, arguments);
-    for (var i = 0; i < arguments.length; i++)
-      if (aceitouAnaliticos(arguments[i])) { carregarClarity(); setTimeout(negarAnuncios, 0); }
-    return r;
-  };
-
-  // A BipView nao veicula anuncios. O "aceitar todos" do CMP concede as categorias de anuncio por
-  // padrao; aqui elas voltam a 'denied' sempre. E o que a nossa Politica de Cookies promete, e
-  // nao perdemos nada: nao existe tag de anuncio no site.
-  function negarAnuncios() {
-    gtag('consent', 'update', {
-      'ad_storage': 'denied',
-      'ad_user_data': 'denied',
-      'ad_personalization': 'denied',
-      'personalization_storage': 'denied'
-    });
-  }
-
-  // porta de serviço: dá para liberar à mão no console, para testar sem clicar no banner
-  window.bipviewConsentimento = function (ok) {
-    gtag('consent', 'update', { 'analytics_storage': ok ? 'granted' : 'denied' });
-    if (ok) carregarClarity();
-  };
-})();
-</script>
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  // clique no botão da loja: quem chegou até o fim da página e foi instalar
-  document.querySelectorAll('[data-loja]').forEach(function (a) {
-    a.addEventListener('click', function () {
-      var q = new URLSearchParams(location.search);
-      gtag('event', 'clique_loja', {
-        loja: a.getAttribute('data-loja') || 'android',
-        parceiro: q.get('utm_source') || 'organico',
-        canal: q.get('utm_medium') || 'direto',
-        campanha: q.get('utm_campaign') || ''
-      });
-    });
-  });
-  // envio do formulário de e-mail: o lead
-  document.querySelectorAll('form[data-lead], .cta form').forEach(function (f) {
-    f.addEventListener('submit', function () {
-      var q = new URLSearchParams(location.search);
-      gtag('event', 'lead_enviado', {
-        parceiro: q.get('utm_source') || 'organico',
-        canal: q.get('utm_medium') || 'direto',
-        campanha: q.get('utm_campaign') || ''
-      });
-    });
-  });
-});
-</script>
 <!-- /BIPVIEW-MEDICAO -->
 
     <link rel="alternate" hreflang="pt" href="https://bipview.com/pt/privacidade.html">
@@ -159,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
 <p class="lead">Cómo BipView trata sus datos. En español claro, sin letra pequeña.</p>
 <p style="color:var(--cinza);font-size:14px">Versión 1.0 · vigente desde el 22 de agosto de 2026</p>
 
-<div style="border:1px solid rgba(143,160,214,.28);border-radius:12px;padding:18px 22px;margin:28px 0;background:rgba(5,84,239,.07)">
+<div style="border:1px solid rgba(143,160,214,.28);border-radius:12px;padding:18px 22px;margin:28px 0;background:rgba(15,106,230,.07)">
 <p style="margin:0"><strong>En una frase:</strong> BipView es un espejo de su patrimonio. Lee sus saldos para mostrárselos a usted, usa claves <strong>solo lectura</strong>, no mueve nada y no vende sus datos a nadie.</p>
 </div>
 

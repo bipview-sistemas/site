@@ -4,15 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>BipView — all your crypto, in one place</title>
-<meta name="description" content="Conecte exchanges e carteiras em modo somente leitura e veja patrimônio, custo médio e estimativa fiscal em um painel só. Sem planilha. Sem dar acesso ao seu dinheiro.">
+<meta name="description" content="Conecte exchanges e carteiras em modo somente leitura e veja patrimônio, entradas e saídas e histórico completo em um painel só. Sem planilha. Sem dar acesso ao seu dinheiro.">
 <meta property="og:title" content="BipView — dos mínimos detalhes à visão completa">
 <meta property="og:description" content="Seu portfólio cripto consolidado, em tempo real, somente leitura. Pessoa física e escritórios.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://bipview.com/">
-<meta name="theme-color" content="#020426">
+<meta name="theme-color" content="#0a0b0d">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 197.18 114.87'%%3E%%3Crect width='197.18' height='114.87' fill='%%23020426'/%%3E%%3C/svg%%3E">
 <link rel="stylesheet" href="/estilo.css">
-<!-- BIPVIEW-MEDICAO -->
+<!-- BIPVIEW-MEDICAO modo=consentido gerado=2026-09-27 por=site/medicao.py — NAO EDITAR A MAO -->
+
+<!-- 1) Consent Mode v2 — negado por padrão, para todo mundo, antes de qualquer tag -->
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -21,40 +23,59 @@
     'ad_user_data': 'denied',
     'ad_personalization': 'denied',
     'analytics_storage': 'denied',
-    'functionality_storage': 'granted',   // idioma e preferência de consentimento: são necessários
+    'functionality_storage': 'granted',
     'personalization_storage': 'denied',
     'security_storage': 'granted',
     'wait_for_update': 2000
   });
   gtag('set', 'ads_data_redaction', true);
-  gtag('set', 'url_passthrough', true);   // mantém utm_* na navegação sem depender de cookie
+  gtag('set', 'url_passthrough', true);
 </script>
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-GNWHTXJ1Z2"></script>
-<script>
-  gtag('js', new Date());
-  gtag('config', 'G-GNWHTXJ1Z2', { 'anonymize_ip': true });
-</script>
-
+<!-- 3) o CMP (AdOpt) — desenha o banner e empurra o consent update no dataLayer -->
 <meta name="adopt-website-id" content="94ceaa98-667a-4c2e-b859-d08d61bc546b" /><script src="//tag.goadopt.io/injector.js?website_code=94ceaa98-667a-4c2e-b859-d08d61bc546b" class="adopt-injector"></script>
 
+<!-- 4) a ponte: escuta o dataLayer e só liga o que o modo permite, e só DEPOIS do aceite -->
 <script>
 (function () {
-  var CLARITY_ID = 'yf8fwiw7ye';        // preencher com o código do projeto (10 caracteres)
-  var carregado = false;
+  var GA4_ID = 'G-GNWHTXJ1Z2';
+  var CLARITY_ID = 'yf8fwiw7ye';
+  var GA4_SO_APOS_ACEITE = true;   // basico: o gtag.js só é baixado com analytics_storage granted
+  var COM_CLARITY = true;            // completo: Clarity depois do aceite
+  var gtagCarregado = false, clarityCarregado = false;
 
-  function carregarClarity() {
-    if (carregado || !CLARITY_ID || CLARITY_ID.indexOf('ID_') === 0) return;
-    carregado = true;
-    (function(c,l,a,r,i,t,y){
-      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", CLARITY_ID);
-    window.clarity('consent');          // o Clarity só passa a gravar depois desta linha
+  function inserir(src) {
+    var t = document.createElement('script'); t.async = true; t.src = src;
+    var y = document.getElementsByTagName('script')[0]; y.parentNode.insertBefore(t, y);
   }
-
-  // reconhece o "aceitei analíticos" em qualquer formato que o CMP empurre no dataLayer
+  function carregarGtag() {
+    if (gtagCarregado) return;
+    gtagCarregado = true;
+    inserir('https://www.googletagmanager.com/gtag/js?id=' + GA4_ID);
+    gtag('js', new Date());
+    gtag('config', GA4_ID, { 'anonymize_ip': true });
+  }
+  function carregarClarity() {
+    if (clarityCarregado || !CLARITY_ID || CLARITY_ID.indexOf('ID_') === 0) return;
+    clarityCarregado = true;
+    window.clarity = window.clarity || function () { (window.clarity.q = window.clarity.q || []).push(arguments); };
+    inserir('https://www.clarity.ms/tag/' + CLARITY_ID);
+    window.clarity('consent');
+  }
+  // A BipView nao veicula anuncios: o "aceitar todos" do CMP concede as categorias de anuncio e aqui
+  // elas voltam a 'denied' — e o que a Politica de Cookies promete.
+  function negarAnuncios() {
+    gtag('consent', 'update', {
+      'ad_storage': 'denied', 'ad_user_data': 'denied',
+      'ad_personalization': 'denied', 'personalization_storage': 'denied'
+    });
+  }
+  function aoAceitarAnaliticos() {
+    negarAnuncios();
+    if (GA4_SO_APOS_ACEITE) carregarGtag();
+    if (COM_CLARITY) carregarClarity();
+  }
+  // reconhece o "aceitei analiticos" em qualquer formato que o CMP empurre no dataLayer
   function aceitouAnaliticos(item) {
     try {
       if (!item) return false;
@@ -65,43 +86,26 @@
     } catch (e) {}
     return false;
   }
-
   window.dataLayer = window.dataLayer || [];
-  // o que já foi empurrado antes deste script
   for (var i = 0; i < window.dataLayer.length; i++)
-    if (aceitouAnaliticos(window.dataLayer[i])) { carregarClarity(); setTimeout(negarAnuncios, 0); }
-  // o que vier depois: envelopamos o push, sem quebrar o comportamento original
+    if (aceitouAnaliticos(window.dataLayer[i])) { aoAceitarAnaliticos(); break; }
   var pushOriginal = window.dataLayer.push;
   window.dataLayer.push = function () {
     var r = pushOriginal.apply(this, arguments);
     for (var i = 0; i < arguments.length; i++)
-      if (aceitouAnaliticos(arguments[i])) { carregarClarity(); setTimeout(negarAnuncios, 0); }
+      if (aceitouAnaliticos(arguments[i])) { aoAceitarAnaliticos(); break; }
     return r;
   };
-
-  // A BipView nao veicula anuncios. O "aceitar todos" do CMP concede as categorias de anuncio por
-  // padrao; aqui elas voltam a 'denied' sempre. E o que a nossa Politica de Cookies promete, e
-  // nao perdemos nada: nao existe tag de anuncio no site.
-  function negarAnuncios() {
-    gtag('consent', 'update', {
-      'ad_storage': 'denied',
-      'ad_user_data': 'denied',
-      'ad_personalization': 'denied',
-      'personalization_storage': 'denied'
-    });
-  }
-
-  // porta de serviço: dá para liberar à mão no console, para testar sem clicar no banner
+  // porta de servico: liberar a mao no console, para testar sem clicar no banner
   window.bipviewConsentimento = function (ok) {
     gtag('consent', 'update', { 'analytics_storage': ok ? 'granted' : 'denied' });
-    if (ok) carregarClarity();
   };
 })();
 </script>
 
+<!-- 5) os dois eventos do funil (o resto e a medicao otimizada do GA4) -->
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-  // clique no botão da loja: quem chegou até o fim da página e foi instalar
   document.querySelectorAll('[data-loja]').forEach(function (a) {
     a.addEventListener('click', function () {
       var q = new URLSearchParams(location.search);
@@ -113,7 +117,6 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     });
   });
-  // envio do formulário de e-mail: o lead
   document.querySelectorAll('form[data-lead], .cta form').forEach(function (f) {
     f.addEventListener('submit', function () {
       var q = new URLSearchParams(location.search);
@@ -126,6 +129,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 </script>
+
 <!-- /BIPVIEW-MEDICAO -->
 
     <link rel="alternate" hreflang="pt" href="https://bipview.com/pt/index.html">
@@ -157,7 +161,7 @@ document.addEventListener('DOMContentLoaded', function () {
   <div class="hero-copy">
     <span class="eyebrow">Crypto portfolio — read-only</span>
     <h1>All your crypto,<br>in one place.<br>Without handing over the keys.</h1>
-    <p class="lead">Exchanges and wallets in a single view: <b>holdings, average cost, deposits and withdrawals, and a tax estimate</b> — updated on their own. BipView only <b>reads</b>. It never moves, never withdraws, never trades.</p>
+    <p class="lead">Exchanges and wallets in a single view: <b>holdings, deposits and withdrawals, and full history</b> — updated on their own. BipView only <b>reads</b>. It never moves, never withdraws, never trades.</p>
     <div class="cta">
       <a class="btn btn-p" href="#planos">Start free <small>— 14 days of Pro, no card</small></a>
       <a class="btn btn-g" href="#seguranca">How BipView protects you</a>
@@ -180,7 +184,7 @@ document.addEventListener('DOMContentLoaded', function () {
     <p class="lead" style="margin-top:14px">Binance here, a wallet there, some DeFi you've forgotten about. When someone asks “how much crypto do you have?”, the honest answer is <b>“let me open five apps”</b>. And at tax time, the spreadsheet.</p>
     <div class="dor">
       <div><h3>Fragmented</h3><p>Each exchange shows its own slice. None shows the whole — not in your currency, not in dollars, not at the same moment in time.</p></div>
-      <div><h3>Manual</h3><p>Average cost, realised gains, deposits and withdrawals: today that lives in a spreadsheet you update when you remember. And you don't.</p></div>
+      <div><h3>Manual</h3><p>Average cost, deposits and withdrawals: today that lives in a spreadsheet you update when you remember. And you don't.</p></div>
       <div><h3>Risky</h3><p>The apps that “solve” it ask for keys with far too much permission. You hand over the vault just to read the statement.</p></div>
     </div>
   </div>
@@ -234,12 +238,12 @@ document.addEventListener('DOMContentLoaded', function () {
       <article>
         <span class="eyebrow">Investor</span>
         <h3>You, with a scattered portfolio</h3>
-        <p class="txt">You're past the learning stage. Now you hold crypto in more than one place and you want to <b>know where it is, what it earned and what you owe</b> — without a spreadsheet and without handing over access.</p>
+        <p class="txt">You're past the learning stage. Now you hold crypto in more than one place and you want to <b>know where it is, how much you have, and what came in and went out</b> — without a spreadsheet and without handing over access.</p>
         <ul>
           <li>Consolidated holdings in local currency and dollars, with the price timestamp</li>
-          <li>Average cost and gain per asset, calculated rather than guessed</li>
+          <li>Average purchase cost per asset — partial, not for tax purposes</li>
           <li>On-chain positions by network and by protocol, DeFi included</li>
-          <li>A monthly tax estimate — and a reminder before the deadline</li>
+          <li>Full history: deposits, withdrawals and fees, priced at the time in R$ and US$</li>
           <li>Start free with 3 sources; move up a plan when it makes sense</li>
         </ul>
         <a class="btn btn-p" href="#planos">See pricing</a>
@@ -247,12 +251,12 @@ document.addEventListener('DOMContentLoaded', function () {
       <article class="pj">
         <span class="eyebrow">Firms and advisors</span>
         <h3>Your clients' portfolios, ready</h3>
-        <p class="txt">Accountant, advisor or manager: today you <b>request the statement, wait, convert and reconcile</b> — client by client. With BipView, each client connects their own sources (read-only) and reaches you with the portfolio already consolidated and the month's tax estimate ready.</p>
+        <p class="txt">Accountant, advisor or manager: today you <b>request the statement, wait, convert and reconcile</b> — client by client. With BipView, each client connects their own sources (read-only) and reaches you with the portfolio already consolidated, in R$ and US$, with the time of each update.</p>
         <ul>
           <li>The client connects on their own, in minutes — you never touch a key</li>
           <li>The statement is imported once; after that the app updates on its own</li>
-          <li>A monthly tax estimate, with the calculation open for you to check</li>
-          <li>Average cost and gain per asset already calculated — no spreadsheet of yours</li>
+          <li>Full history of deposits and withdrawals, priced at the time, for you to check</li>
+          <li>Average purchase cost per asset — partial, not for tax purposes</li>
           <li>Firm dashboard and export for your filing workflow: <b>next release</b>, and you can join the queue</li>
         </ul>
         <a class="btn btn-g" href="mailto:contato@bipview.com?subject=BipView%%20para%%20escrit%%C3%%B3rios">Talk about professional use</a>
@@ -291,7 +295,7 @@ document.addEventListener('DOMContentLoaded', function () {
           <li>Up to 3 sources (exchanges or wallets)</li>
           <li>Portfolio mirror in USD and R$</li>
           <li>Updated once a week, and on the day you open the app</li>
-          <li>This month's tax estimate</li>
+          <li>Price in R$ and US$, always, with the time of the last update</li>
         </ul>
         <a class="btn btn-g" href="#app">Download free</a>
       </div>
@@ -299,8 +303,9 @@ document.addEventListener('DOMContentLoaded', function () {
         <span class="tag">Most popular</span>
         <div class="nome">Pro</div>
         <div class="preco">R$ 39.90<small>/month</small></div>
-        <div class="anual">or 12× R$ 33.25 yearly — R$ 359.10 up front</div>
+        <div class="anual">or 12× R$ 33.25 · Yearly R$ 359.10, renewed every year</div>
         <div class="anual" style="opacity:.75">In 12 instalments, each one costs less than the monthly plan.</div>
+        <!-- PROMO-50 --><div class="anual">Launch: 50% off the first charge until 31 Oct 2026 — Monthly for R$ 19.95 or Yearly for R$ 179.55.</div><!-- /PROMO-50 -->
         <ul>
           <li>Up to 15 sources</li>
           <li>Updates itself 3× a day + whenever you open the app</li>
@@ -337,7 +342,7 @@ document.addEventListener('DOMContentLoaded', function () {
       <details><summary>Can BipView touch my money?</summary><p>No — and that isn't a promise, it's a technical limit. You create a key at the exchange that is <em>read-only</em>. The exchange itself refuses any withdrawal, order or transfer coming from that key. BipView doesn't even ask for another kind.</p></details>
       <details><summary>What if BipView is breached?</summary><p>Your key is encrypted with a data key that is yours alone, protected by a hardware vault. Anyone reaching the database would see unreadable text. And even if they decrypted it, they'd hold a key that only reads.</p></details>
       <details><summary>Do I have to give my seed phrase?</summary><p>Never. For on-chain wallets you give only the public address — the same one already visible in any blockchain explorer.</p></details>
-      <details><summary>Does the tax calculation count as a filing?</summary><p>It's an <em>estimate</em>, with the calculation open for you to check. It's there so you know what to expect and aren't caught off guard. The filing itself remains yours or your accountant's — and BipView has a partner for that.</p></details>
+      <details><summary>Does BipView calculate my taxes?</summary><p>Not at launch: the full tax module belongs to Premium, which comes later. Today the app shows holdings, full history and the average purchase cost per asset — partial, not for tax purposes. Filing remains yours or your accountant's — and BipView has a partner for that.</p></details>
       <details><summary>Which exchanges and networks work?</summary><p>The main Latin American and global ones, plus the largest on-chain networks, with new connectors arriving as they're validated against real accounts. The live list is in the app.</p></details>
       <details><summary>Do I have to pay to try it?</summary><p>No. It's 14 days of full Pro, no card. On day 14 you choose: subscribe or stay on the free plan, with 3 sources.</p></details>
       <details><summary>How do I cancel?</summary><p>In your phone's store, whenever you want. Access lasts until the end of the period you paid for, and nothing is charged after that.</p></details>
@@ -352,8 +357,8 @@ document.addEventListener('DOMContentLoaded', function () {
     <h2>Refer BipView and earn on every customer.</h2>
     <p class="lead" style="margin-top:14px">Creators, exchanges, accounting firms and communities: you refer, your audience gets a lifetime discount, and you earn for 24 months on every customer who subscribes.</p>
     <div class="dor">
-      <div><h3>Commission for 24 months</h3><p>For every customer you refer, set by the date of your contract with us.</p></div>
-      <div><h3>A discount for your audience</h3><p>25% forever, and 50% in the launch month.</p></div>
+      <div><h3>Commission for 24 months</h3><p>15% to 30% of everything each referred customer pays — the rate is negotiated with you; half from the 13th month on.</p></div>
+      <!-- PROMO-PARCEIRO --><div><h3>A discount for your audience</h3><p>25% forever. At launch, 50% off the first charge — monthly or Yearly — until 31 Oct 2026; it does not stack with the 25%.</p></div><!-- /PROMO-PARCEIRO -->
       <div><h3>Page and kit, ready</h3><p>A page of your own, a store listing with your message, and ready-made material.</p></div>
     </div>
     <p style="margin-top:22px"><a class="btn btn-p" href="mailto:parcerias@bipview.com?subject=Programa%20de%20parceiros">I want to be a partner</a></p>

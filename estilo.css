@@ -9,17 +9,17 @@
 
 /* ---- MARCA (Manual de Marca BipView 2025) ---- */
 :root{
-  --navy:#020426;      /* Azul Escuro Intenso — primaria */
-  --navy2:#021466;     /* Azul Intermediario */
-  --blue:#0554EF;      /* Azul Vibrante — primaria, CTA */
-  --blue2:#0540F2;     /* Azul Eletrico */
-  --blue3:#1274F1;     /* Azul Claro */
-  --neutro:#F2F2F2;    /* Cinza Claro — texto sobre navy */
-  --cinza:#8FA0D6;     /* texto secundario sobre navy (derivado, contraste AA) */
-  --cinza2:#5C6BA8;
-  --linha:rgba(18,116,241,.22);
-  --card:rgba(2,20,102,.42);
-  --card2:rgba(2,20,102,.72);
+  --navy:#0a0b0d;      /* Azul Escuro Intenso — primaria */
+  --navy2:#141519;     /* Azul Intermediario */
+  --blue:#0f6ae6;      /* Azul Vibrante — primaria, CTA */
+  --blue2:#0f6ae6;     /* Azul Eletrico */
+  --blue3:#6fa8ff;     /* Azul Claro */
+  --neutro:#ffffff;    /* Cinza Claro — texto sobre navy */
+  --cinza:#a3a4a7;     /* texto secundario sobre navy (derivado, contraste AA) */
+  --cinza2:#a3a4a7;
+  --linha:#2c2f36;
+  --card:#141519;
+  --card2:#1e2025;
   --ok:#26D07C;
   --disp:'Anton',Impact,'Arial Narrow Bold',sans-serif;
   --corpo:'Open Sans','Segoe UI',Roboto,Arial,sans-serif;
@@ -28,8 +28,8 @@
 html{scroll-behavior:smooth}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
 body{background:var(--navy);color:var(--neutro);font-family:var(--corpo);font-size:17px;line-height:1.65;
-  background-image:radial-gradient(1100px 620px at 85%% -10%%,rgba(5,84,239,.28),transparent 60%%),
-                   radial-gradient(800px 520px at -5%% 8%%,rgba(18,116,241,.16),transparent 55%%);
+  background-image:radial-gradient(1100px 620px at 85%% -10%%,rgba(15,106,230,.28),transparent 60%%),
+                   radial-gradient(800px 520px at -5%% 8%%,rgba(111,168,255,.16),transparent 55%%);
   background-attachment:fixed;-webkit-font-smoothing:antialiased}
 a{color:var(--blue3)}
 a:focus-visible,button:focus-visible{outline:3px solid var(--blue3);outline-offset:3px;border-radius:6px}
@@ -50,14 +50,14 @@ section+section{border-top:1px solid var(--linha)}
 .btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--corpo);font-weight:600;font-size:16px;
   padding:16px 26px;border-radius:999px;text-decoration:none;border:1px solid transparent;transition:transform .15s,box-shadow .15s;cursor:pointer}
 .btn:hover{transform:translateY(-1px)}
-.btn-p{background:var(--blue);color:#fff;box-shadow:0 12px 34px rgba(5,84,239,.35)}
-.btn-p:hover{box-shadow:0 16px 40px rgba(5,84,239,.5)}
-.btn-g{background:transparent;color:#fff;border-color:rgba(242,242,242,.28)}
+.btn-p{background:var(--blue);color:#fff;box-shadow:0 12px 34px rgba(15,106,230,.35)}
+.btn-p:hover{box-shadow:0 16px 40px rgba(15,106,230,.5)}
+.btn-g{background:transparent;color:#fff;border-color:rgba(255,255,255,.28)}
 .btn-g:hover{border-color:var(--blue3)}
 .btn small{font-weight:400;opacity:.8}
 
 /* ---- topo ---- */
-.top{position:sticky;top:0;z-index:20;backdrop-filter:blur(14px);background:rgba(2,4,38,.72);border-bottom:1px solid var(--linha)}
+.top{position:sticky;top:0;z-index:20;backdrop-filter:blur(14px);background:rgba(10,11,13,.72);border-bottom:1px solid var(--linha)}
 .top .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;gap:20px}
 .lockup{height:26px;width:auto;color:var(--neutro)}
 .nav{display:flex;gap:26px;font-size:14.5px;font-weight:600}
@@ -68,14 +68,14 @@ section+section{border-top:1px solid var(--linha)}
 
 /* ---- hero ---- */
 .hero{padding:96px 0 72px;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
-.hero .mk{width:min(340px,80%%);height:auto;color:var(--neutro);filter:drop-shadow(0 30px 60px rgba(5,84,239,.35));justify-self:center}
+.hero .mk{width:min(340px,80%%);height:auto;color:var(--neutro);filter:drop-shadow(0 30px 60px rgba(15,106,230,.35));justify-self:center}
 .hero-copy{display:flex;flex-direction:column;gap:22px}
 .hero .cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:6px}
 .hero .prova{display:flex;gap:26px;flex-wrap:wrap;color:var(--cinza);font-size:13.5px;margin-top:6px}
 .hero .prova b{color:#fff;font-family:var(--disp);font-size:22px;letter-spacing:.5px;display:block;line-height:1}
 @media(max-width:820px){
   .hero{grid-template-columns:1fr;padding-top:44px;gap:28px}
-  .hero .mk{order:-1;width:38%%;filter:drop-shadow(0 16px 30px rgba(5,84,239,.35))}
+  .hero .mk{order:-1;width:38%%;filter:drop-shadow(0 16px 30px rgba(15,106,230,.35))}
   h1{font-size:clamp(34px,11vw,54px)}
   .lead{font-size:17px}
   .hero .prova{gap:18px}
@@ -98,7 +98,7 @@ html,body{overflow-x:hidden;max-width:100%%}
 .seg{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start}
 .seg ol{list-style:none;display:flex;flex-direction:column;gap:14px;margin-top:22px}
 .seg li{display:grid;grid-template-columns:44px 1fr;gap:16px;align-items:start;background:var(--card);border:1px solid var(--linha);border-radius:16px;padding:18px 20px}
-.seg li i{font-style:normal;font-family:var(--disp);font-size:20px;color:var(--blue3);background:rgba(18,116,241,.12);border-radius:10px;height:44px;display:flex;align-items:center;justify-content:center}
+.seg li i{font-style:normal;font-family:var(--disp);font-size:20px;color:var(--blue3);background:rgba(111,168,255,.12);border-radius:10px;height:44px;display:flex;align-items:center;justify-content:center}
 .seg li b{display:block;color:#fff;font-weight:600;margin-bottom:3px}
 .seg li span{color:var(--cinza);font-size:15px}
 .nunca{background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--linha);border-radius:22px;padding:28px}
@@ -112,8 +112,8 @@ html,body{overflow-x:hidden;max-width:100%%}
 /* ---- o app (telas reais) ---- */
 .telas{margin-top:34px;display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
 .telas figure{margin:0;display:flex;flex-direction:column;gap:12px;align-items:center}
-.telas img{width:100%%;max-width:300px;height:auto;border-radius:30px;border:1px solid rgba(18,116,241,.35);
-  box-shadow:0 30px 60px rgba(0,0,0,.45),0 0 0 6px rgba(2,20,102,.6)}
+.telas img{width:100%%;max-width:300px;height:auto;border-radius:30px;border:1px solid rgba(111,168,255,.35);
+  box-shadow:0 30px 60px rgba(0,0,0,.45),0 0 0 6px rgba(20,21,25,.6)}
 .telas figcaption{color:var(--cinza);font-size:14px;text-align:center;line-height:1.5;max-width:28ch}
 .telas figcaption b{color:#fff;font-weight:600}
 @media(max-width:900px){.telas{grid-template-columns:repeat(2,minmax(0,1fr))}}
@@ -124,7 +124,7 @@ html,body{overflow-x:hidden;max-width:100%%}
 /* ---- publicos ---- */
 .pub{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:34px}
 .pub article{background:var(--card);border:1px solid var(--linha);border-radius:22px;padding:30px;display:flex;flex-direction:column;gap:14px}
-.pub article.pj{border-color:rgba(18,116,241,.45);background:linear-gradient(160deg,var(--card2),var(--card))}
+.pub article.pj{border-color:rgba(111,168,255,.45);background:linear-gradient(160deg,var(--card2),var(--card))}
 .pub h3{font-size:26px}
 .pub ul{list-style:none;display:flex;flex-direction:column;gap:9px;color:var(--cinza);font-size:15.5px}
 .pub li{padding-left:22px;position:relative}
@@ -141,7 +141,7 @@ html,body{overflow-x:hidden;max-width:100%%}
 /* ---- planos ---- */
 .planos{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px;align-items:stretch}
 .plano{background:var(--card);border:1px solid var(--linha);border-radius:22px;padding:28px;display:flex;flex-direction:column;gap:14px;position:relative}
-.plano.hl{border-color:var(--blue);box-shadow:0 20px 60px rgba(5,84,239,.28);background:linear-gradient(160deg,var(--card2),var(--card))}
+.plano.hl{border-color:var(--blue);box-shadow:0 20px 60px rgba(15,106,230,.28);background:linear-gradient(160deg,var(--card2),var(--card))}
 .plano .tag{position:absolute;top:-13px;left:24px;background:var(--blue);color:#fff;font-size:11px;font-weight:600;letter-spacing:1.4px;text-transform:uppercase;padding:6px 12px;border-radius:999px}
 .plano .nome{font-family:var(--disp);font-size:24px;letter-spacing:.6px;color:#fff}
 .plano .preco{font-family:var(--disp);font-size:44px;line-height:1;color:#fff}
