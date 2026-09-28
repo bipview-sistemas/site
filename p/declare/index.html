@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>BipView com Declare Cripto — 14 dias de Pro e 25% de desconto para sempre</title>
-<meta name="description" content="Todo o seu cripto num painel só, somente leitura. 14 dias de Pro sem cartão e 25% de desconto para sempre pela indicação de Declare Cripto.">
+<title>BipView com Declare Cripto — 14 dias de Pro sem cartão</title>
+<meta name="description" content="Todo o seu cripto num painel só, somente leitura. 14 dias de Pro sem cartão; assinando durante o teste, 25% de desconto para sempre.">
 <link rel="canonical" href="https://bipview.com/p/declare/">
 <meta property="og:title" content="BipView com Declare Cripto">
 <meta property="og:description" content="Todo o seu cripto num painel só. Somente leitura. 14 dias de Pro sem cartão.">
@@ -104,7 +104,12 @@ footer a{color:var(--fraco)}
     gtag('config', GA4_ID, { 'anonymize_ip': true });
   }
   function carregarClarity() {
-    if (clarityCarregado || !CLARITY_ID || CLARITY_ID.indexOf('ID_') === 0) return;
+    if (!CLARITY_ID || CLARITY_ID.indexOf('ID_') === 0) return;
+    // todo formulario sai mascarado para o Clarity: a Politica v1.1 promete "o que voce digitar nos campos
+    // mascarado", e isso tem de valer seja qual for o modo configurado no painel do Clarity (ADMIN, 27/09)
+    var forms = document.querySelectorAll('form');
+    for (var k = 0; k < forms.length; k++) forms[k].setAttribute('data-clarity-mask', 'true');
+    if (clarityCarregado) { window.clarity('consent'); return; }   // aceitou de novo depois de revogar
     clarityCarregado = true;
     window.clarity = window.clarity || function () { (window.clarity.q = window.clarity.q || []).push(arguments); };
     inserir('https://www.clarity.ms/tag/' + CLARITY_ID);
@@ -134,14 +139,43 @@ footer a{color:var(--fraco)}
     } catch (e) {}
     return false;
   }
+  // reconhece o "recusei" e o "revoguei" — o mesmo sinal, analytics_storage negado num update
+  function recusouAnaliticos(item) {
+    try {
+      if (!item) return false;
+      if (item[0] === 'consent' && item[1] === 'update' && item[2])
+        return item[2].analytics_storage === 'denied';
+      if (item.event === 'consent_update' || item.event === 'adopt_consent')
+        return item.analytics_storage === 'denied' || item.analytics === false;
+    } catch (e) {}
+    return false;
+  }
+  // Na recusa ou na revogacao, o Clarity para e apaga os dele, e os cookies de medicao do NOSSO dominio somem
+  // (_ga, _ga_<id>, _clck, _clsk). O MUID e do dominio da Microsoft: o site nao alcanca (ADMIN, 27/09).
+  function aoRecusarAnaliticos() {
+    if (clarityCarregado && window.clarity) { try { window.clarity('consent', false); } catch (e) {} }
+    var nomes = document.cookie.split(';').map(function (c) { return c.split('=')[0].trim(); })
+      .filter(function (n) { return /^(_ga|_ga_[A-Za-z0-9]+|_clck|_clsk)$/.test(n); });
+    var host = location.hostname, raiz = '.' + host.replace(/^www\./, '');
+    for (var a = 0; a < nomes.length; a++)
+      for (var b = 0, doms = ['', host, raiz]; b < doms.length; b++)
+        document.cookie = nomes[a] + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/' + (doms[b] ? '; domain=' + doms[b] : '');
+  }
   window.dataLayer = window.dataLayer || [];
-  for (var i = 0; i < window.dataLayer.length; i++)
-    if (aceitouAnaliticos(window.dataLayer[i])) { aoAceitarAnaliticos(); break; }
+  // o que ja estava na fila antes deste script: vale o ULTIMO estado de analytics
+  var ultimo = null;
+  for (var i = 0; i < window.dataLayer.length; i++) {
+    if (aceitouAnaliticos(window.dataLayer[i])) ultimo = 'granted';
+    else if (recusouAnaliticos(window.dataLayer[i])) ultimo = 'denied';
+  }
+  if (ultimo === 'granted') aoAceitarAnaliticos(); else if (ultimo === 'denied') aoRecusarAnaliticos();
   var pushOriginal = window.dataLayer.push;
   window.dataLayer.push = function () {
     var r = pushOriginal.apply(this, arguments);
-    for (var i = 0; i < arguments.length; i++)
+    for (var i = 0; i < arguments.length; i++) {
       if (aceitouAnaliticos(arguments[i])) { aoAceitarAnaliticos(); break; }
+      if (recusouAnaliticos(arguments[i])) { aoRecusarAnaliticos(); break; }
+    }
     return r;
   };
   // porta de servico: liberar a mao no console, para testar sem clicar no banner
@@ -193,7 +227,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   <div class="oferta">
     <span class="g">50% na primeira cobrança até 31/10/2026</span>
-    <small>mensal ou Anualidade, não soma com os 25%. Depois, 25% para sempre pela indicação de Declare Cripto — no 12×, desde a primeira parcela.</small>
+    <small>mensal ou Anualidade, não soma com os 25%. Assinando durante os 14 dias de teste, 25% para sempre — no 12×, desde a primeira parcela.</small>
   </div>
 
   <p><a class="btn" href="https://play.google.com/store/apps/details?id=com.bipview.app&amp;listing=declare&amp;referrer=utm_source%3Ddeclare%26utm_medium%3Ddeclare%26utm_campaign%3Dlancamento" data-loja="android" id="cta-topo">Baixar grátis · 14 dias de Pro sem cartão</a></p>
@@ -211,8 +245,8 @@ document.addEventListener('DOMContentLoaded', function () {
     <h2>Como funciona</h2>
     <ol class="passos">
       <li><b>Você instala e conecta a primeira fonte.</b> Carteira entra por endereço público; exchange, por chave somente leitura ou pelo extrato que você já baixa.</li>
-      <li><b>14 dias de Pro completo, sem cartão.</b> Tudo aberto: fontes, histórico, distribuição, metas, DeFi.</li>
-      <li><b>No 14º dia você escolhe.</b> Assina com o desconto de Declare Cripto, ou fica no plano grátis com 3 fontes.</li>
+      <li><b>14 dias de Pro completo, sem cartão.</b> Tudo aberto: fontes, histórico, distribuição e posições DeFi.</li>
+      <li><b>Até o 14º dia você escolhe.</b> Assinando durante o teste, fica com o desconto para sempre; ou fica no plano grátis com 3 fontes.</li>
     </ol>
   </section>
 
@@ -228,21 +262,21 @@ document.addEventListener('DOMContentLoaded', function () {
   <section><h2>Por que Declare Cripto indica</h2><p class="dep">“Quem declara imposto de cripto precisa saber quanto tem. A BipView mostra.”</p><p class="obs">— Declare Cripto</p></section>
 
   <section>
-    <h2>Quanto custa, com o desconto de Declare Cripto</h2>
+    <h2>Quanto custa, assinando durante o teste</h2>
     <div class="precos">
-      <div class="preco"><span class="obs">Mensal</span><span class="de">R$ 39,90</span><span class="por">R$ 29,93</span><span class="obs">por mês</span></div>
-      <div class="preco destaque"><span class="tag">MAIS ESCOLHIDO</span><span class="obs">Anual em 12×</span><span class="de">R$ 33,25</span><span class="por">R$ 24,94</span><span class="obs">por mês, 12 parcelas</span></div>
-      <div class="preco"><span class="obs">Anualidade</span><span class="de">R$ 359,10</span><span class="por">R$ 269,33</span><span class="obs">renova todo ano</span></div>
+      <div class="preco"><span class="obs">Mensal</span><span class="de">R$ 39,90</span><span class="por">R$ 29,90</span><span class="obs">por mês</span></div>
+      <div class="preco destaque"><span class="tag">MAIS ESCOLHIDO</span><span class="obs">Anual em 12×</span><span class="de">R$ 32,90</span><span class="por">R$ 23,90</span><span class="obs">por mês, 12 parcelas</span></div>
+      <div class="preco"><span class="obs">Anualidade</span><span class="de">R$ 354,90</span><span class="por">R$ 264,90</span><span class="obs">renova todo ano</span></div>
     </div>
-    <p class="obs">O desconto de 25% incide sobre o preço de tela de cada forma. Preços em reais, cobrados pela loja do seu celular. Cancele quando quiser: o acesso continua até o fim do período pago.</p>
+    <p class="obs">Assinando durante os 14 dias de teste, o desconto é de pelo menos 25% sobre o preço de tela de cada forma; depois do teste, vale o preço de tela. Preços em reais, cobrados pela loja do seu celular. No Mensal e na Anualidade, cancele quando quiser: o acesso continua até o fim do período pago; no 12×, o compromisso é de 12 parcelas.</p>
   </section>
 
   <section>
     <h2>Perguntas diretas</h2>
     <details><summary>A BipView consegue mexer no meu dinheiro?</summary><p>Não, e não é promessa: é limitação técnica. A chave que você cria é somente leitura, e a exchange recusa saque ou ordem vinda dela.</p></details>
     <details><summary>Preciso pagar para testar?</summary><p>Não. São 14 dias de Pro completo sem cartão. No 14º dia você escolhe assinar ou ficar no plano grátis, com 3 fontes.</p></details>
-    <details><summary>Como cancelo?</summary><p>Pela própria loja do celular, quando quiser. O acesso continua até o fim do período já pago.</p></details>
-    <details><summary>O cálculo fiscal vale como declaração?</summary><p>É uma estimativa, com o cálculo aberto para conferir. A declaração continua sendo sua ou do seu contador, e a BipView tem parceiro para isso.</p></details>
+    <details><summary>Como cancelo?</summary><p>Pela própria loja do celular. No Mensal e na Anualidade, quando quiser — o acesso continua até o fim do período já pago; no 12×, o compromisso é de 12 parcelas.</p></details>
+    <details><summary>A BipView calcula o meu imposto?</summary><p>Não. O app mostra o custo médio de compra por ativo, que é parcial e não serve para fins fiscais. A declaração continua sendo sua ou do seu contador, e a BipView tem parceiro para isso.</p></details>
     <details><summary>Tenho iPhone.</summary><p>A versão de iPhone vem depois do Android. Deixe seu e-mail abaixo e avisamos no dia.</p></details>
   </section>
 
@@ -268,8 +302,8 @@ document.addEventListener('DOMContentLoaded', function () {
      <a href="#" onclick="return false" id="prefs-cookies">Preferências de cookies</a> ·
      <a href="mailto:contato@bipview.com">contato@bipview.com</a></p>
   <p class="legal">BIPVIEW SISTEMAS LTDA · CNPJ 63.306.772/0001-76 · Porto Alegre, RS. A BipView é um
-  espelho de portfólio: não é corretora, não custodia ativos e não faz recomendação de investimento.
-  Valores fiscais são estimativas. Página em parceria com Declare Cripto. © 2026 BipView.</p>
+  espelho de portfólio: não é corretora, não custodia ativos, não faz recomendação de investimento e não
+  calcula imposto. Página em parceria com Declare Cripto. © 2026 BipView.</p>
 </div></footer>
 </body>
 </html>
