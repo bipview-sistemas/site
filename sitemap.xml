@@ -85,4 +85,46 @@
     <xhtml:link rel="alternate" hreflang="es" href="https://bipview.com/es/termos.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://bipview.com/en/termos.html"/>
   </url>
+  <url>
+    <loc>https://bipview.com/ajuda/</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://bipview.com/ajuda/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bipview.com/ajuda/es/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bipview.com/ajuda/en/"/>
+  </url>
+  <url>
+    <loc>https://bipview.com/ajuda/es/</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://bipview.com/ajuda/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bipview.com/ajuda/es/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bipview.com/ajuda/en/"/>
+  </url>
+  <url>
+    <loc>https://bipview.com/ajuda/en/</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://bipview.com/ajuda/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bipview.com/ajuda/es/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bipview.com/ajuda/en/"/>
+  </url>
+  <url>
+    <loc>https://bipview.com/ajuda/coinbase/</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://bipview.com/ajuda/coinbase/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bipview.com/ajuda/coinbase/es/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bipview.com/ajuda/coinbase/en/"/>
+  </url>
+  <url>
+    <loc>https://bipview.com/ajuda/coinbase/es/</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://bipview.com/ajuda/coinbase/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bipview.com/ajuda/coinbase/es/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bipview.com/ajuda/coinbase/en/"/>
+  </url>
+  <url>
+    <loc>https://bipview.com/ajuda/coinbase/en/</loc>
+    <lastmod>2026-10-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://bipview.com/ajuda/coinbase/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bipview.com/ajuda/coinbase/es/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bipview.com/ajuda/coinbase/en/"/>
+  </url>
 </urlset>
