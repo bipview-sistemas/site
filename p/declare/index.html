@@ -58,9 +58,9 @@ footer a{color:var(--fraco)}
 </style>
 <!--
   BIPVIEW · bloco de medicao com consentimento — modelo das LPs de parceiro
-  GERADO por site/medicao.py em 2026-09-27 (modo consentido). Nao editar a mao: rode o script.
+  GERADO por site/medicao.py em 2026-10-09 (modo consentido). Nao editar a mao: rode o script.
 -->
-<!-- BIPVIEW-MEDICAO modo=consentido gerado=2026-09-27 por=site/medicao.py — NAO EDITAR A MAO -->
+<!-- BIPVIEW-MEDICAO modo=consentido gerado=2026-10-09 por=site/medicao.py — NAO EDITAR A MAO -->
 
 <!-- 1) Consent Mode v2 — negado por padrão, para todo mundo, antes de qualquer tag -->
 <script>
@@ -80,8 +80,8 @@ footer a{color:var(--fraco)}
   gtag('set', 'url_passthrough', true);
 </script>
 
-<!-- 3) o CMP (AdOpt) — desenha o banner e empurra o consent update no dataLayer -->
-<meta name="adopt-website-id" content="94ceaa98-667a-4c2e-b859-d08d61bc546b" /><script src="//tag.goadopt.io/injector.js?website_code=94ceaa98-667a-4c2e-b859-d08d61bc546b" class="adopt-injector"></script>
+<!-- 3) o aviso de cookies PROPRIO (site/consentimento.js) — desenha o aviso e empurra o consent update no dataLayer -->
+<script src="/consentimento.js"></script>
 
 <!-- 4) a ponte: escuta o dataLayer e só liga o que o modo permite, e só DEPOIS do aceite -->
 <script>
@@ -134,7 +134,7 @@ footer a{color:var(--fraco)}
       if (!item) return false;
       if (item[0] === 'consent' && item[1] === 'update' && item[2])
         return item[2].analytics_storage === 'granted';
-      if (item.event === 'consent_update' || item.event === 'adopt_consent')
+      if (item.event === 'consent_update')
         return item.analytics_storage === 'granted' || item.analytics === true;
     } catch (e) {}
     return false;
@@ -145,7 +145,7 @@ footer a{color:var(--fraco)}
       if (!item) return false;
       if (item[0] === 'consent' && item[1] === 'update' && item[2])
         return item[2].analytics_storage === 'denied';
-      if (item.event === 'consent_update' || item.event === 'adopt_consent')
+      if (item.event === 'consent_update')
         return item.analytics_storage === 'denied' || item.analytics === false;
     } catch (e) {}
     return false;
@@ -292,7 +292,7 @@ document.addEventListener('DOMContentLoaded', function () {
   <p>Espelho do seu portfólio cripto. Somente leitura, sempre.</p>
   <p><a href="https://bipview.com/pt/privacidade.html">Política de privacidade</a> ·
      <a href="https://bipview.com/pt/termos.html">Termos de uso</a> ·
-     <a href="#" onclick="return false" id="prefs-cookies">Preferências de cookies</a> ·
+     <a href="#" onclick="if(window.bipviewPreferencias){window.bipviewPreferencias()}return false" id="prefs-cookies">Preferências de cookies</a> ·
      <a href="mailto:contato@bipview.com">contato@bipview.com</a></p>
   <p class="legal">BIPVIEW SISTEMAS LTDA · CNPJ 63.306.772/0001-76 · Porto Alegre, RS. A BipView é um
   espelho de portfólio: não é corretora, não custodia ativos, não faz recomendação de investimento e não

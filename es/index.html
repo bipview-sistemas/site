@@ -12,7 +12,7 @@
 <meta name="theme-color" content="#0a0b0d">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 197.18 114.87'%%3E%%3Crect width='197.18' height='114.87' fill='%%23020426'/%%3E%%3C/svg%%3E">
 <link rel="stylesheet" href="/estilo.css">
-<!-- BIPVIEW-MEDICAO modo=consentido gerado=2026-09-27 por=site/medicao.py — NAO EDITAR A MAO -->
+<!-- BIPVIEW-MEDICAO modo=consentido gerado=2026-10-09 por=site/medicao.py — NAO EDITAR A MAO -->
 
 <!-- 1) Consent Mode v2 — negado por padrão, para todo mundo, antes de qualquer tag -->
 <script>
@@ -32,8 +32,8 @@
   gtag('set', 'url_passthrough', true);
 </script>
 
-<!-- 3) o CMP (AdOpt) — desenha o banner e empurra o consent update no dataLayer -->
-<meta name="adopt-website-id" content="94ceaa98-667a-4c2e-b859-d08d61bc546b" /><script src="//tag.goadopt.io/injector.js?website_code=94ceaa98-667a-4c2e-b859-d08d61bc546b" class="adopt-injector"></script>
+<!-- 3) o aviso de cookies PROPRIO (site/consentimento.js) — desenha o aviso e empurra o consent update no dataLayer -->
+<script src="/consentimento.js"></script>
 
 <!-- 4) a ponte: escuta o dataLayer e só liga o que o modo permite, e só DEPOIS do aceite -->
 <script>
@@ -86,7 +86,7 @@
       if (!item) return false;
       if (item[0] === 'consent' && item[1] === 'update' && item[2])
         return item[2].analytics_storage === 'granted';
-      if (item.event === 'consent_update' || item.event === 'adopt_consent')
+      if (item.event === 'consent_update')
         return item.analytics_storage === 'granted' || item.analytics === true;
     } catch (e) {}
     return false;
@@ -97,7 +97,7 @@
       if (!item) return false;
       if (item[0] === 'consent' && item[1] === 'update' && item[2])
         return item[2].analytics_storage === 'denied';
-      if (item.event === 'consent_update' || item.event === 'adopt_consent')
+      if (item.event === 'consent_update')
         return item.analytics_storage === 'denied' || item.analytics === false;
     } catch (e) {}
     return false;
@@ -307,7 +307,7 @@ document.addEventListener('DOMContentLoaded', function () {
     <p class="lead" style="margin-top:14px">Exchanges latinoamericanos y globales, billeteras on-chain en las principales redes, DeFi y derivados. Cada conector trae <b>todo lo que la API permite leer</b> — saldo en spot, futuros y earn — y lo que no es saldo va a una pantalla de información adicional, para que veas todo lo que el exchange expone.</p>
     <div class="cob">
       <span>Binance</span><span>Mercado Bitcoin</span><span>Coinbase</span><span>OKX</span><span>Bybit</span><span>Kraken</span><span>KuCoin</span><span>Bitget</span><span>Gate.io</span><span>HTX</span><span>Bitfinex</span><span>MEXC</span>
-      <span>Ethereum</span><span>Solana</span><span>BNB Chain</span><span>Polygon</span><span>Arbitrum</span><span>Base</span><span>Avalanche</span><span>Hyperliquid</span>
+      <span>Bitcoin</span><span>Ethereum</span><span>Solana</span><span>Tron</span><span>Polygon</span><span>Arbitrum</span><span>Base</span><span>Hyperliquid</span>
       <span class="mais">+ decenas de exchanges y redes en el roadmap</span>
     </div>
     <p class="cob-nota">Cobertura en expansión continua. Los conectores entran en producción a medida que se validan con cuentas reales — nunca antes.</p>
@@ -428,7 +428,7 @@ document.addEventListener('DOMContentLoaded', function () {
     </div>
     <div>
       <h4>Empresa</h4>
-      <ul><li><a href="/privacidade">Política de privacidad</a></li><li><a href="/termos">Términos de uso</a></li><li><a href="https://hub.goadopt.io/document/19888916-ca80-4419-93d1-ceb755e26bc2?language=pt" rel="noopener">Política de cookies</a></li><li><a href="#" onclick="if(window.adoptOpenPreferences){window.adoptOpenPreferences()}else{var b=document.querySelector('#adopt-controller-button,[id*=controller]');if(b)b.click()}return false">Preferencias de cookies</a></li><li><a href="mailto:contato@bipview.com">contato@bipview.com</a></li></ul>
+      <ul><li><a href="/privacidade">Política de privacidad</a></li><li><a href="/termos">Términos de uso</a></li><li><a href="#" onclick="if(window.bipviewPreferencias){window.bipviewPreferencias()}return false">Preferencias de cookies</a></li><li><a href="mailto:contato@bipview.com">contato@bipview.com</a></li></ul>
     </div>
     <p class="legal">BIPVIEW SISTEMAS LTDA — CNPJ 63.306.772/0001-76 — Porto Alegre, RS, Brasil. BipView es un espejo de portafolio: no es exchange, no custodia activos y no hace recomendaciones de inversión. Los valores fiscales son estimaciones. © 2026 BipView. Todos los derechos reservados.</p>
   </div>
