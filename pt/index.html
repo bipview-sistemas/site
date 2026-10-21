@@ -245,7 +245,7 @@ document.addEventListener('DOMContentLoaded', function () {
       <ol>
         <li><i>1</i><div><b>Chave só de leitura</b><span>Você cria na exchange uma chave <em>somente consulta</em>. Sem saque, sem ordem, sem transferência. A própria exchange não deixa ela fazer mais que ler.</span></div></li>
         <li><i>2</i><div><b>Cofre por cliente</b><span>Sua chave é cifrada com uma chave de dados exclusiva sua, que por sua vez é protegida por um cofre de hardware. Ninguém da BipView lê sua chave — nem quem tem acesso ao banco.</span></div></li>
-        <li><i>3</i><div><b>Carteira pública, sem segredo</b><span>Para carteiras on-chain você informa só o endereço público — o mesmo que já está na blockchain. Nenhuma frase-semente, nunca.</span></div></li>
+        <li><i>3</i><div><b>Carteira pública, sem segredo</b><span>Para carteiras on-chain você informa só o endereço público — o mesmo que já está na blockchain. Nenhuma frase-seed, nunca.</span></div></li>
         <li><i>4</i><div><b>Nada de dinheiro na tela bloqueada</b><span>Notificações avisam que algo mudou e chamam para o app. O valor fica atrás do seu login — porque a tela de bloqueio é de quem estiver ao lado.</span></div></li>
       </ol>
     </div>
@@ -253,7 +253,7 @@ document.addEventListener('DOMContentLoaded', function () {
       <h3>A BipView nunca</h3>
       <ul>
         <li>Movimenta, saca ou converte seus ativos</li>
-        <li>Pede senha, PIN ou frase-semente</li>
+        <li>Pede senha, PIN ou frase-seed</li>
         <li>Guarda sua chave em texto legível</li>
         <li>Executa ordem em seu nome</li>
         <li>Recomenda o que comprar ou vender</li>
@@ -381,7 +381,7 @@ document.addEventListener('DOMContentLoaded', function () {
     <div class="faq">
       <details><summary>A BipView consegue mexer no meu dinheiro?</summary><p>Não — e não é promessa, é limitação técnica. Você cria na exchange uma chave <em>somente leitura</em>. A própria exchange recusa saque, ordem ou transferência vinda dessa chave. A BipView nem pede outro tipo.</p></details>
       <details><summary>E se a BipView for invadida?</summary><p>Sua chave está cifrada com uma chave de dados só sua, protegida por cofre de hardware. Quem acessasse o banco veria texto ilegível. E, mesmo decifrando, teria uma chave que só lê.</p></details>
-      <details><summary>Preciso dar minha frase-semente?</summary><p>Nunca. Para carteiras on-chain você informa só o endereço público — o mesmo que já aparece em qualquer explorador de blockchain.</p></details>
+      <details><summary>Preciso dar minha frase-seed?</summary><p>Nunca. Para carteiras on-chain você informa só o endereço público — o mesmo que já aparece em qualquer explorador de blockchain.</p></details>
       <details><summary>A BipView calcula meu imposto?</summary><p>No lançamento, não: o fiscal completo é do Premium, que vem depois. Hoje o app mostra patrimônio, histórico completo e o custo médio de compra por ativo — parcial, não serve para fins fiscais. A declaração continua sendo sua ou do seu contador. No celular, o menu Imposto leva à Declare Cripto, parceira que faz a declaração; se você contratar, a BipView recebe comissão.</p></details>
       <details><summary>Quais exchanges e redes funcionam?</summary><p>As principais brasileiras e globais, e as maiores redes on-chain, com novos conectores entrando conforme são validados com contas reais. A lista viva está no app.</p></details>
       <details><summary>E se a corretora recusar a minha chave?</summary><p>Se a corretora recusar a chave ao conectar, o app avisa no mesmo dia, na tela da corretora, e diz o que conferir: os IPs da BipView liberados, a permissão só de leitura e a chave e o segredo copiados inteiros. Depois é só conectar de novo. No celular, isso vale a partir da versão 1.2.3 do app.</p></details>
