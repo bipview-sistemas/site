@@ -71,14 +71,14 @@ section+section{border-top:1px solid var(--linha)}
 .hero .mk{width:min(340px,80%);height:auto;color:var(--neutro);filter:drop-shadow(0 30px 60px rgba(15,106,230,.35));justify-self:center}
 .hero-copy{display:flex;flex-direction:column;gap:22px}
 .hero .cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:6px}
-.hero .prova{display:flex;gap:26px;flex-wrap:wrap;color:var(--cinza);font-size:13.5px;margin-top:6px}
+.hero .prova{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 26px;max-width:520px;color:var(--cinza);font-size:13.5px;margin-top:6px}
 .hero .prova b{color:#fff;font-family:var(--disp);font-size:22px;letter-spacing:.5px;display:block;line-height:1}
 @media(max-width:820px){
   .hero{grid-template-columns:1fr;padding-top:44px;gap:28px}
   .hero .mk{order:-1;width:38%;filter:drop-shadow(0 16px 30px rgba(15,106,230,.35))}
   h1{font-size:clamp(34px,11vw,54px)}
   .lead{font-size:17px}
-  .hero .prova{gap:18px}
+  .hero .prova{gap:14px 18px}
 }
 /* nada pode ultrapassar a largura da tela: o texto e o botao do topo saiam pela lateral */
 html,body{overflow-x:hidden;max-width:100%}
@@ -131,6 +131,10 @@ html,body{overflow-x:hidden;max-width:100%}
 .pub li::before{content:"";position:absolute;left:0;top:.62em;width:9px;height:9px;border-radius:999px;background:var(--blue3);display:block}
 .pub .btn{align-self:flex-start;margin-top:8px}
 @media(max-width:820px){.pub{grid-template-columns:1fr}}
+.multitela{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:30px}
+.multitela article{background:var(--card);border:1px solid var(--linha);border-radius:22px;padding:26px;display:flex;flex-direction:column;gap:8px}
+.multitela h3{font-size:22px}
+@media(max-width:820px){.multitela{grid-template-columns:1fr}}
 
 /* ---- cobertura ---- */
 .cob{margin-top:30px;display:flex;flex-wrap:wrap;gap:10px}
