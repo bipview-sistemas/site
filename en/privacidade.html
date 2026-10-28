@@ -65,7 +65,7 @@ main .wrap a{color:#6fa8ff}
 <span class="eyebrow">Legal document</span>
 <h1 style="font-size:clamp(30px,5vw,48px)">Privacy Policy</h1>
 <p class="lead">How BipView handles your data. In plain English, no fine print.</p>
-<p style="color:var(--cinza);font-size:14px">Version 1.3 · effective as of October 8, 2026 · replaces version 1.1, of September 27, 2026.</p>
+<p style="color:var(--cinza);font-size:14px">Version 1.4 · effective as of October 28, 2026 · replaces version 1.3, of October 8, 2026.</p>
 <div style="border:1px solid rgba(111,168,255,.28);border-radius:14px;padding:18px 20px;margin:26px 0;background:#141519"><p style="margin:0">In one sentence: BipView is a mirror of your holdings. It reads your balances to show them to you, uses read-only keys, moves nothing, and sells your data to no one.</p></div>
 <h2>1. Who is responsible</h2>
 <p>BIPVIEW SISTEMAS LTDA, CNPJ 63.306.772/0001-76, headquartered at Praça Monsenhor Emílio Lottermann, 40 — Moinhos de Vento, Porto Alegre/RS, Brazil, CEP 90560-050.</p>
@@ -86,13 +86,15 @@ main .wrap a{color:#6fa8ff}
 <h3>Financial data we display</h3>
 <p>Balances, positions, transaction history, and values calculated from the sources you connected. It is the content the product exists to show.</p>
 <h3>Subscription</h3>
-<p>If you subscribe to a paid plan, the store (Google Play or App Store) and RevenueCat tell us the plan, the dates, the amount, and the status of your subscription. We never receive your card details.</p>
+<p>If you subscribe to a paid plan, the store (Google Play or App Store) — or, in the browser, Stripe — and RevenueCat tell us the plan, the dates, the amount, and the status of your subscription. We never receive your card details.</p>
 <h3>Notifications</h3>
 <p>If you allow notifications on your device, we store its token so we can send them. By design, no notification shows money amounts — the alert brings you to the app, and the number stays behind the login. You can turn them off at any time in your device settings.</p>
 <h3>Surveys and feedback</h3>
 <p>From time to time we may ask how likely you are to recommend BipView (a score from 0 to 10), or whether a specific action worked well. You can also write to us whenever you like.</p>
 <p>We store the score, the text you write, the app version, and the date. We never store amounts from your holdings alongside your survey answer — the score does not need to know how much you have, and combining the two would create data that did not exist.</p>
 <p>Answering is always optional. Dismissing it changes nothing in the service, and keeps the question from coming back too soon.</p>
+<h3>Where you came from</h3>
+<p>If you reach BipView through a campaign, ad or partner link, we keep, once and only on a new account, that campaign&#x27;s tag: the link code and its campaign labels (UTM). Alongside it, we do not keep ad identifiers, IP address or device data, and none of it goes to ad platforms: the reports we use only contain totals per campaign. Deleting the account erases this data.</p>
 <h3>BIPVIA, the assistant (only if you turn it on)</h3>
 <p>BIPVIA is BipView&#x27;s artificial intelligence assistant. It is optional: it only works after you turn it on and accept its terms, and you can turn it off at any time in Settings.</p>
 <p>To answer, we process the text of your question, up to three previous questions from the same conversation, and the data in your BipView account needed for the answer — for example, amounts in R$ and US$ by asset and by source, percentages, movements, your plan, and your usage. Before sending, a safeguard removes what directly identifies you — name, email, CPF, CNPJ, phone number, wallet address, and extended public key (xpub) — and refuses any question that seems to contain a recovery phrase, private key, or transaction hash. The data remains linked to your account: it is not anonymous, but it goes without direct identification.</p>
@@ -103,13 +105,13 @@ main .wrap a{color:#6fa8ff}
 <h3>Access records</h3>
 <p>As required by Brazil&#x27;s Internet Civil Rights Framework (Law 12,965/2014, art. 15), we keep records of access to the app — IP address, date and time, and the type of device or browser — for 6 months, confidentially and in a controlled environment. They are only handed over to anyone under a court order.</p>
 <h3>On the bipview.com website</h3>
-<p>The website uses the cookies it needs to work: your chosen language and the record of your cookie choice. Beyond those, <strong>only if you accept</strong> measurement cookies, we use two third-party tools:</p>
+<p>The website uses a single cookie it needs to work: the one that stores your cookie choice (bv_consent, 12 months). Beyond that, <strong>only if you accept</strong> measurement cookies, we use two third-party tools:</p>
 <ul>
   <li><strong>Google Analytics</strong> (Google, United States) — to learn how many people visit the site, where they come from, and whether they click to download the app. This is our marketing measurement.</li>
   <li><strong>Microsoft Clarity</strong> (Microsoft, United States) — to understand how the pages are used: heatmaps and replays of browsing on the page (clicks, scrolling, and mouse movement), with anything you type into fields masked. This is our usability measurement.</li>
 </ul>
 <p>By accepting, you also consent to the transfer of this browsing data to the United States (Art. 33, VIII of the LGPD, Brazil&#x27;s data protection law). Google processes it under its own policy (policies.google.com/technologies/partner-sites). Microsoft also collects and receives this data to provide Microsoft Advertising, and may use it for the purposes described in the Microsoft Privacy Statement (privacy.microsoft.com/en-us/privacystatement) — including advertising. <strong>BipView does not use any data for advertising</strong>; if you do not want Microsoft to receive yours, simply decline.</p>
-<p>If you decline, neither tool is loaded. You can change your choice at any time under &quot;Cookie preferences&quot; in the site footer. The details are in the Cookie policy. <strong>None of this exists in the app.</strong></p>
+<p>If you decline, neither tool is loaded. To prove your consent, we may also keep a record of the choice on our servers in Brazil (São Paulo): a random code, the choice, the date and the notice version, with no name, email or IP address. You can change your choice at any time under &quot;Cookie preferences&quot; in the site footer, which also shows each cookie, who sets it, what it is for and how long it lasts. <strong>None of this exists in the app.</strong></p>
 <h3>What we do NOT collect</h3>
 <p>Location, contacts, photos, calendar, the messages on your device (texts, emails, and chats in other apps), and browsing history. The app does not request any of these permissions — and it only reads a file from your device when you choose to upload it yourself. What you write inside the app, to BIPVIA or to our team, is described above.</p>
 <p>In the app, we do not record your screen or your taps, and there are no third-party trackers.</p>
@@ -117,12 +119,13 @@ main .wrap a{color:#6fa8ff}
 <ul>
   <li>Show your consolidated holdings and keep them up to date</li>
   <li>Authenticate your access and keep your account secure</li>
-  <li>Calculate tax estimates and remind you of deadlines</li>
+  <li>Show, on PRO, the average purchase cost per asset (partial, not for tax purposes)</li>
   <li>Send service notifications</li>
   <li>Process subscriptions and unlock your plan&#x27;s features</li>
   <li>Answer your questions in BIPVIA, if you turn on the assistant, and protect it against abuse</li>
   <li>Understand what to improve in the product, based on your answers</li>
   <li>Measure how the website is used and improve the experience on it, if you consent</li>
+  <li>Learn which campaigns and partners bring customers, in aggregated numbers</li>
   <li>Comply with legal obligations — such as keeping access records — and respond to authorities when required by law</li>
 </ul>
 <p>BipView does not use your data for advertising and does not sell it.</p>
@@ -131,7 +134,7 @@ main .wrap a{color:#6fa8ff}
 <ul>
   <li>the <strong>performance of the contract</strong> (Art. 7, V of Law 13,709/2018) for everything the service you signed up for requires — including reading the sources you connect, processing your subscription, sending service notifications, and answering your questions in BIPVIA, if you turn on the assistant;</li>
   <li>the <strong>consent</strong> (Art. 7, I) for the website&#x27;s measurement cookies and, in the BIPVIA terms, to use the assistant and for your question to be processed outside Brazil (Art. 33, VIII);</li>
-  <li>the <strong>legitimate interest</strong> (Art. 7, IX) for satisfaction surveys, product improvement, and protection against abuse — including improving BIPVIA based on reported answers, tickets and, once they exist, saved conversations, without direct identification (you can object through the privacy email);</li>
+  <li>the <strong>legitimate interest</strong> (Art. 7, IX) for satisfaction surveys, product improvement, protection against abuse, and to learn, in aggregated numbers, which campaigns and partners customers come from — including improving BIPVIA based on reported answers, tickets and, once they exist, saved conversations, without direct identification (you can object through the privacy email);</li>
   <li>the <strong>compliance with legal obligations</strong> (Art. 7, II) for access records and whenever the law requires it.</li>
   <li>the <strong>regular exercise of rights</strong> (Art. 7, VI) to keep the record of your BIPVIA acceptance and the support tickets.</li>
 </ul>
@@ -140,19 +143,19 @@ main .wrap a{color:#6fa8ff}
 <ul>
   <li><strong>Amazon Web Services</strong> — hosting, database, sign-in (Amazon Cognito), service emails, and key vault. Your data is stored in a Brazilian region (São Paulo). If you turn on BIPVIA, AWS also runs the artificial intelligence model that writes the answers (Amazon Bedrock), in Brazil or in the United States (see International transfer).</li>
   <li><strong>RevenueCat</strong> — subscription management. It receives your account&#x27;s internal identifier and the purchase data (plan, dates, amount, and status). It does not receive your email, your name, or your balances.</li>
-  <li><strong>Google Play and App Store</strong> — process the payment, directly with you. We never receive or store your card details at any point.</li>
+  <li><strong>Google Play, App Store and Stripe</strong> — process the payment, directly with you: the store on your phone; Stripe in the browser. We never receive or store your card details at any point.</li>
   <li><strong>Google and Apple</strong> — deliver notifications to your device; Google also handles sign-in, if you choose to use your Google account.</li>
   <li><strong>Expo</strong> — forwards notifications to Google and Apple (it receives the device token and the alert text, which never contains amounts) and delivers app updates.</li>
   <li><strong>Amazon Bedrock (AWS), only if you turn on BIPVIA</strong> — runs the language model that writes the answers. The model is from another company, but AWS runs it on its own servers: the model provider does not receive your data.</li>
   <li><strong>Exchanges and blockchain data providers</strong> — to read your balances, we query the exchange with the read-only key you gave us, and your wallet addresses at public blockchain data providers. They see the query coming from our servers — not your name or your email.</li>
-  <li><strong>On the website only:</strong> AdOpt records your cookie choice; Google (Analytics) and Microsoft (Clarity) receive browsing data only if you accept (section 2).</li>
+  <li><strong>On the website only:</strong> Google (Analytics) and Microsoft (Clarity) receive browsing data only if you accept (section 2). Your cookie choice is recorded by BipView itself, with no third party.</li>
 </ul>
 <p>Declare Cripto, our partner for official tax filing, does not receive any of your data from BipView. If you go to them through the link in the app, whatever you provide there is governed by their policy.</p>
 <h3>International transfer</h3>
 <p>Some of these partners are outside Brazil. Each transfer relies on one of the grounds in Art. 33 of the LGPD:</p>
 <ul>
   <li><strong>Google, for sign-in with Google</strong> (USA) — receives the email and name on your Google account, to confirm it is you. Basis: standard contractual clauses approved by the ANPD, incorporated into Google&#x27;s data protection terms (Art. 33, II, &quot;b&quot;).</li>
-  <li><strong>Google Play and App Store, for payment</strong> (USA) — receive the purchase data directly from you, to charge the subscription. This is not a transfer by us: the store collects it directly from you (ANPD Resolution CD/ANPD No. 19/2024, art. 6).</li>
+  <li><strong>Google Play, App Store and Stripe, for payment</strong> (USA) — receive the purchase data directly from you, to charge the subscription (Stripe, when you subscribe in the browser). This is not a transfer by us: whoever processes the payment collects it directly from you (ANPD Resolution CD/ANPD No. 19/2024, art. 6).</li>
   <li><strong>RevenueCat</strong> (USA) — receives the internal identifier and the purchase data, to manage your subscription. Basis: performance of the contract you requested (Art. 33, IX, together with Art. 7, V).</li>
   <li><strong>Expo, plus Google and Apple for delivery</strong> (USA) — receive the device token and the alert text, with no amounts, and the IP address when checking for updates, to deliver notifications and app updates. Basis: performance of the contract (Art. 33, IX).</li>
   <li><strong>Exchanges you connect and blockchain data providers</strong> (various countries) — receive the read-only key (only the exchange that issued it) and the wallet&#x27;s public addresses, to read the balances you asked to see. Basis: performance of the contract (Art. 33, IX).</li>
@@ -171,15 +174,15 @@ main .wrap a{color:#6fa8ff}
   <li><strong>Technical error logs:</strong> 30 days.</li>
   <li><strong>BIPVIA:</strong> today, the conversation stays only on your device; conversation history, once it exists, is kept for up to 30 days, and you can delete it. The record of your acceptance (terms version, date and time, channel, and language) and of when you turned the assistant on and off: for as long as your account exists. Usage records (counters and the assistant&#x27;s cost for the month): up to 14 months. &quot;Talk to a person&quot; tickets, with any conversation you attach, and reported answers: 1 year.</li>
   <li><strong>Database backups:</strong> erased automatically within 35 days.</li>
-  <li><strong>Subscription data:</strong> the store and RevenueCat keep the purchase record under their own rules, linked to an internal code that no longer points to you once your account is deleted.</li>
-  <li><strong>Website measurement (if you accepted):</strong> for each tool&#x27;s retention period, stated in the Cookie policy.</li>
+  <li><strong>Subscription data:</strong> the store (or, in the browser, Stripe) and RevenueCat keep the purchase record under their own rules; at RevenueCat, it is linked to an internal code that no longer points to you once your account is deleted.</li>
+  <li><strong>Website measurement (if you accepted):</strong> for each tool&#x27;s retention period, shown under &quot;Cookie preferences&quot; in the site footer. The record of your choice, for 5 years after it.</li>
 </ul>
 <h2>7. Deleting your account</h2>
-<p>You can delete your account inside the app, under Settings, or request deletion at <a href="https://bipview.com/excluir-conta">bipview.com/excluir-conta</a> — without needing the app installed and without talking to anyone.</p>
+<p>You can delete your account inside the app, under Settings, without talking to anyone. Without the app, request deletion at <a href="https://bipview.com/excluir-conta">bipview.com/excluir-conta</a>: in that case, we confirm the account is yours before deleting it.</p>
 <p>Deletion immediately erases your account data, your exchange credentials, your wallet addresses, your history and positions, your survey answers, and your login. The statements you uploaded are deleted automatically within 10 days. It is irreversible — which is why the app asks for explicit confirmation.</p>
 <p>Deletion also erases what BIPVIA kept: the record of your acceptance, the tickets, the reported answers and, once it exists, the conversation history.</p>
 <p>All that remains is what the law requires us to keep (access records, for 6 months) and backups, which erase themselves within 35 days.</p>
-<p>If you have an active subscription, cancel it in the store as well (Google Play or App Store), because billing is controlled by the store, not by us.</p>
+<p>If you have an active subscription, cancel it before deleting your account: on your phone, in the store (Google Play or App Store), which controls billing; in the browser, under Profile → View plans → &quot;Manage or cancel subscription&quot;.</p>
 <h2>8. Your rights</h2>
 <p>The LGPD guarantees that you can, at any time:</p>
 <ul>
@@ -194,14 +197,14 @@ main .wrap a{color:#6fa8ff}
 </ul>
 <p>To exercise any of them, write to <a href="mailto:privacidade@bipview.com">privacidade@bipview.com</a>. We respond within the legal deadline. Support requests made through &quot;Talk to a person&quot; in BIPVIA are answered within 3 business days, and never in more than 5 calendar days.</p>
 <h2>9. Automated calculations</h2>
-<p>BipView automatically calculates a risk score (0 to 100) and tax estimates. The score describes the concentration and composition of your portfolio — it is not a buy or sell recommendation, and BipView does not provide investment advice.</p>
+<p>BipView automatically calculates a risk score (0 to 100) and, on PRO, the average purchase cost per asset. The score describes the concentration and composition of your portfolio — it is not a buy or sell recommendation, and BipView does not provide investment advice.</p>
 <p>You can ask for an explanation of the criteria behind these calculations at the email above, under Art. 20 of the LGPD.</p>
 <p>BIPVIA does not make decisions about you. Usage limits are general rules for each plan; if your use is blocked on suspicion of abuse, a person at BipView reviews the block on request, through &quot;Talk to a person&quot;, within the ticket deadline.</p>
 <h2>10. Security</h2>
 <ul>
   <li>All traffic between the app and our servers is encrypted (HTTPS)</li>
   <li>Exchange credentials are encrypted with a key managed in AWS KMS</li>
-  <li>Your session is kept in the operating system&#x27;s secure vault (Keychain on iPhone, Keystore on Android), accessible only when the device is unlocked</li>
+  <li>In the app, your session is kept in the operating system&#x27;s secure vault (Keychain on iPhone, Keystore on Android), accessible only when the device is unlocked; in the browser, it is stored in the browser itself until you sign out or the session expires</li>
   <li>Each customer sees only their own data — isolation is verified by automated tests</li>
   <li>In BIPVIA, the personal data safeguard runs before sending, and a checker reviews every answer written by the assistant before it reaches you: it looks for numbers outside your account&#x27;s values, links, investment advice, and instructions to move crypto, and blocks any answer where it finds them. The assistant only has tools to read your own account</li>
   <li>Our technical logs do not store your balances, your credentials, or the text of your questions to BIPVIA</li>
@@ -211,7 +214,7 @@ main .wrap a{color:#6fa8ff}
 <p>BipView is not intended for anyone under 18, and we do not knowingly collect data from children or teenagers.</p>
 <p>Before using BIPVIA, you confirm that you are 18 or over.</p>
 <h2>12. About the tax information</h2>
-<p>BipView&#x27;s tax calculations are estimates for personal organization. They do not replace your accountant, do not constitute tax advice, and are not an official document for Brazil&#x27;s tax authority (Receita Federal).</p>
+<p>Today, no plan on sale calculates taxes. The average purchase cost shown on PRO is partial and is for personal organization: it does not replace your accountant, does not constitute tax advice, and is not an official document for Brazil&#x27;s tax authority (Receita Federal).</p>
 <h2>13. What BipView does not do</h2>
 <p>BipView does not buy, sell, transfer, or hold virtual assets. We have no access to your coins and cannot move them — the keys we use are read-only, and we never have your private key.</p>
 <p>BIPVIA also only reads: it explains your numbers and may bring general information and the app&#x27;s alerts, but it does not recommend buying or selling, moves nothing, and can make mistakes — the number that counts is the one on the source screen in the app.</p>
