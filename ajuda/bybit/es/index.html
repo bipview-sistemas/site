@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cómo conectar tu Bybit a BipView (solo lectura) — BipView</title>
+<meta name="description" content="Paso a paso, con las pantallas reales, para crear la clave de API de solo lectura en Bybit (System-generated, API Transaction, Read-Only, IP de BipView) y conectarla a BipView.">
+<meta property="og:title" content="Cómo conectar tu Bybit a BipView (solo lectura) — BipView">
+<meta property="og:description" content="Paso a paso, con las pantallas reales, para crear la clave de API de solo lectura en Bybit (System-generated, API Transaction, Read-Only, IP de BipView) y conectarla a BipView.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://bipview.com/ajuda/bybit/es/">
+<meta name="theme-color" content="#0a0b0d">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 197.18 114.87'%3E%3Crect width='197.18' height='114.87' fill='%23020426'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/estilo.css">
+<style>
+main .wrap h1, main .wrap h2, main .wrap h3{text-transform:none;letter-spacing:0;font-family:var(--corpo);font-weight:600}
+main .wrap h2{margin:40px 0 12px;color:#fff}
+main .wrap > p:not([class]){margin:0 0 14px;line-height:1.65}
+main .wrap a{color:#6fa8ff}
+main .wrap code{font-family:Consolas,'Courier New',monospace;font-size:.92em;background:#1e2025;border:1px solid #2c2f36;border-radius:6px;padding:1px 6px;word-break:normal;overflow-wrap:anywhere}
+.aj-trilha{font-size:14px;color:var(--cinza);margin:0 0 18px}
+.aj-linguas{font-size:14px;color:var(--cinza);margin:14px 0 28px}
+.aj-linguas a,.aj-trilha a{color:#6fa8ff}
+.aj-passos{list-style:none;padding:0;margin:28px 0 0;counter-reset:passo}
+.aj-passo{border:1px solid #2c2f36;border-radius:12px;background:#141519;padding:18px 20px;margin:0 0 14px}
+.aj-passo h3{margin:0 0 8px;font-size:17px;color:#fff}
+.aj-passo p{margin:0;color:#e6e7e9;line-height:1.6}
+.aj-num{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#6fa8ff;margin-bottom:6px}
+.aj-alerta{border:2px solid #f5b544;background:#2a2112}
+.aj-fig{margin:14px 0 0}
+.aj-fig img{display:block;max-width:100%;height:auto;border:1px solid #2c2f36;border-radius:8px;background:#fff}
+.aj-fig figcaption{font-size:13px;color:var(--cinza);margin-top:6px}
+.aj-fig a{display:block;cursor:zoom-in}
+.aj-aviso{margin-top:16px;border:2px solid #f5b544;background:#2a2112;border-radius:10px;padding:12px 14px}
+.aj-aviso p{margin:0}
+.aj-dica{font-size:14px;color:var(--cinza);margin:-4px 0 0}
+.aj-acao{margin:14px 0 0}
+.aj-botao{display:inline-block;background:#0f6ae6;color:#fff !important;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:10px}
+.aj-botao:hover{background:#0b57c0}
+.aj-alt{margin-top:16px;border-top:1px solid #2c2f36;padding-top:12px}
+.aj-alt summary{cursor:pointer;color:#6fa8ff;font-weight:600}
+.aj-alt p{margin:10px 0 0}
+.aj-alerta .aj-num{color:#f5b544}
+.aj-cartoes{display:grid;gap:12px;margin:16px 0 0}
+.aj-cartao{display:block;border:1px solid #2c2f36;border-radius:12px;background:#141519;padding:16px 18px;color:#fff;text-decoration:none}
+.aj-cartao:hover{border-color:#6fa8ff}
+.aj-tab{width:100%;border-collapse:collapse;margin-top:12px;font-size:15px}
+.aj-tab th,.aj-tab td{text-align:left;padding:10px 8px;border-top:1px solid #2c2f36;vertical-align:top}
+.aj-tab th{color:#fff}
+.aj-tab td{color:#e6e7e9}
+.aj-atualizado{color:var(--cinza);font-size:13px;margin-top:40px}
+</style>
+<!-- BIPVIEW-MEDICAO modo=consentido gerado=2026-11-08 por=site/medicao.py — NAO EDITAR A MAO -->
+
+<!-- 1) Consent Mode v2 — negado por padrão, para todo mundo, antes de qualquer tag -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'analytics_storage': 'denied',
+    'functionality_storage': 'granted',
+    'personalization_storage': 'denied',
+    'security_storage': 'granted',
+    'wait_for_update': 2000
+  });
+  gtag('set', 'ads_data_redaction', true);
+  gtag('set', 'url_passthrough', true);
+</script>
+
+<!-- 3) o aviso de cookies PROPRIO (site/consentimento.js) — desenha o aviso e empurra o consent update no dataLayer -->
+<script src="/consentimento.js"></script>
+
+<!-- 4) a ponte: escuta o dataLayer e só liga o que o modo permite, e só DEPOIS do aceite -->
+<script>
+(function () {
+  var GA4_ID = 'G-GNWHTXJ1Z2';
+  var CLARITY_ID = 'yf8fwiw7ye';
+  var GA4_SO_APOS_ACEITE = true;   // basico: o gtag.js só é baixado com analytics_storage granted
+  var COM_CLARITY = true;            // completo: Clarity depois do aceite
+  var gtagCarregado = false, clarityCarregado = false;
+
+  function inserir(src) {
+    var t = document.createElement('script'); t.async = true; t.src = src;
+    var y = document.getElementsByTagName('script')[0]; y.parentNode.insertBefore(t, y);
+  }
+  function carregarGtag() {
+    if (gtagCarregado) return;
+    gtagCarregado = true;
+    inserir('https://www.googletagmanager.com/gtag/js?id=' + GA4_ID);
+    gtag('js', new Date());
+    gtag('config', GA4_ID, { 'anonymize_ip': true });
+  }
+  function carregarClarity() {
+    if (!CLARITY_ID || CLARITY_ID.indexOf('ID_') === 0) return;
+    // todo formulario sai mascarado para o Clarity: a Politica v1.1 promete "o que voce digitar nos campos
+    // mascarado", e isso tem de valer seja qual for o modo configurado no painel do Clarity (ADMIN, 27/09)
+    var forms = document.querySelectorAll('form');
+    for (var k = 0; k < forms.length; k++) forms[k].setAttribute('data-clarity-mask', 'true');
+    if (clarityCarregado) { window.clarity('consent'); return; }   // aceitou de novo depois de revogar
+    clarityCarregado = true;
+    window.clarity = window.clarity || function () { (window.clarity.q = window.clarity.q || []).push(arguments); };
+    inserir('https://www.clarity.ms/tag/' + CLARITY_ID);
+    window.clarity('consent');
+  }
+  // A BipView nao veicula anuncios: o "aceitar todos" do CMP concede as categorias de anuncio e aqui
+  // elas voltam a 'denied' — e o que a Politica de Cookies promete.
+  function negarAnuncios() {
+    gtag('consent', 'update', {
+      'ad_storage': 'denied', 'ad_user_data': 'denied',
+      'ad_personalization': 'denied', 'personalization_storage': 'denied'
+    });
+  }
+  function aoAceitarAnaliticos() {
+    negarAnuncios();
+    if (GA4_SO_APOS_ACEITE) carregarGtag();
+    if (COM_CLARITY) carregarClarity();
+  }
+  // reconhece o "aceitei analiticos" em qualquer formato que o CMP empurre no dataLayer
+  function aceitouAnaliticos(item) {
+    try {
+      if (!item) return false;
+      if (item[0] === 'consent' && item[1] === 'update' && item[2])
+        return item[2].analytics_storage === 'granted';
+      if (item.event === 'consent_update')
+        return item.analytics_storage === 'granted' || item.analytics === true;
+    } catch (e) {}
+    return false;
+  }
+  // reconhece o "recusei" e o "revoguei" — o mesmo sinal, analytics_storage negado num update
+  function recusouAnaliticos(item) {
+    try {
+      if (!item) return false;
+      if (item[0] === 'consent' && item[1] === 'update' && item[2])
+        return item[2].analytics_storage === 'denied';
+      if (item.event === 'consent_update')
+        return item.analytics_storage === 'denied' || item.analytics === false;
+    } catch (e) {}
+    return false;
+  }
+  // Na recusa ou na revogacao, o Clarity para e apaga os dele, e os cookies de medicao do NOSSO dominio somem
+  // (_ga, _ga_<id>, _clck, _clsk). O MUID e do dominio da Microsoft: o site nao alcanca (ADMIN, 27/09).
+  function aoRecusarAnaliticos() {
+    if (clarityCarregado && window.clarity) { try { window.clarity('consent', false); } catch (e) {} }
+    var nomes = document.cookie.split(';').map(function (c) { return c.split('=')[0].trim(); })
+      .filter(function (n) { return /^(_ga|_ga_[A-Za-z0-9]+|_clck|_clsk)$/.test(n); });
+    var host = location.hostname, raiz = '.' + host.replace(/^www\./, '');
+    for (var a = 0; a < nomes.length; a++)
+      for (var b = 0, doms = ['', host, raiz]; b < doms.length; b++)
+        document.cookie = nomes[a] + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/' + (doms[b] ? '; domain=' + doms[b] : '');
+  }
+  window.dataLayer = window.dataLayer || [];
+  // o que ja estava na fila antes deste script: vale o ULTIMO estado de analytics
+  var ultimo = null;
+  for (var i = 0; i < window.dataLayer.length; i++) {
+    if (aceitouAnaliticos(window.dataLayer[i])) ultimo = 'granted';
+    else if (recusouAnaliticos(window.dataLayer[i])) ultimo = 'denied';
+  }
+  if (ultimo === 'granted') aoAceitarAnaliticos(); else if (ultimo === 'denied') aoRecusarAnaliticos();
+  var pushOriginal = window.dataLayer.push;
+  window.dataLayer.push = function () {
+    var r = pushOriginal.apply(this, arguments);
+    for (var i = 0; i < arguments.length; i++) {
+      if (aceitouAnaliticos(arguments[i])) { aoAceitarAnaliticos(); break; }
+      if (recusouAnaliticos(arguments[i])) { aoRecusarAnaliticos(); break; }
+    }
+    return r;
+  };
+  // porta de servico: liberar a mao no console, para testar sem clicar no banner
+  window.bipviewConsentimento = function (ok) {
+    gtag('consent', 'update', { 'analytics_storage': ok ? 'granted' : 'denied' });
+  };
+})();
+</script>
+
+<!-- 5) os dois eventos do funil (o resto e a medicao otimizada do GA4) -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('[data-loja]').forEach(function (a) {
+    a.addEventListener('click', function () {
+      var q = new URLSearchParams(location.search);
+      gtag('event', 'clique_loja', {
+        loja: a.getAttribute('data-loja') || 'android',
+        parceiro: q.get('utm_source') || 'organico',
+        canal: q.get('utm_medium') || 'direto',
+        campanha: q.get('utm_campaign') || ''
+      });
+    });
+  });
+  document.querySelectorAll('form[data-lead], .cta form').forEach(function (f) {
+    f.addEventListener('submit', function () {
+      var q = new URLSearchParams(location.search);
+      gtag('event', 'lead_enviado', {
+        parceiro: q.get('utm_source') || 'organico',
+        canal: q.get('utm_medium') || 'direto',
+        campanha: q.get('utm_campaign') || ''
+      });
+    });
+  });
+});
+</script>
+
+<!-- /BIPVIEW-MEDICAO -->
+
+    <link rel="alternate" hreflang="pt" href="https://bipview.com/ajuda/bybit/">
+    <link rel="alternate" hreflang="es" href="https://bipview.com/ajuda/bybit/es/">
+    <link rel="alternate" hreflang="en" href="https://bipview.com/ajuda/bybit/en/">
+    <link rel="alternate" hreflang="x-default" href="https://bipview.com/ajuda/bybit/">
+    <link rel="canonical" href="https://bipview.com/ajuda/bybit/es/">
+  </head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a href="/" aria-label="BipView — início"><svg class="lockup" viewBox="0 0 2572.77 559.06" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" ><path d="M1846.86 142.44l0 0c27.39,0 49.8,22.41 49.8,49.8l0 247.52c0,27.39 -22.41,49.8 -49.8,49.8l-0 0c-27.39,0 -49.8,-22.41 -49.8,-49.8l0 -247.52c0,-27.39 22.41,-49.8 49.8,-49.8z"/><path d="M1579.01 432.57c-16.34,-101.71 -32.68,-203.43 -49.02,-305.15 -4.45,-30.22 17.33,-55.17 46.28,-55.17 28.91,0.03 49.89,20.97 48.51,33.44l20.06 173.78c7.37,-56.63 16.81,-113.26 24.18,-169.9 8.14,-24.82 24.24,-37.33 47.92,-37.33 24.02,0 53.34,20.3 49.52,42.37 -17.64,101.93 -36.53,211.51 -53.81,317.27 1.8,20.79 -29.3,57.66 -68.09,57.66 -29.55,2.9 -61.86,-26.93 -65.56,-56.99z"/><path d="M2251.54 435.71c-12.81,-106.23 -23.85,-212.45 -36.65,-318.68 -3.94,-19.83 17.78,-45.55 38.95,-44.78 24.63,-0.77 42.34,15 45.5,35.69l21.26 188.58c6.62,-61.4 13.26,-122.79 19.88,-184.19 2.92,-20.11 19.68,-40.08 53.02,-40.08 24.62,0 46.86,17.49 52.26,43.19l23.15 181.08c6.33,-61.5 12.66,-123.01 18.98,-184.52 2.18,-22.27 24.55,-42.15 44.59,-39.75 29.68,2.57 41.87,24.39 40.13,41.51l-39.12 323.64c-0.76,30.2 -27.12,52.15 -60.43,52.15 -26.79,0.02 -58.19,-28.53 -58.09,-48.15l-23.15 -160.5c-6.32,50.54 -12.65,101.08 -18.97,151.61 -1.08,20.94 -19.96,57.06 -59.12,57.04 -42.49,0.02 -62.29,-34.39 -62.18,-53.85z"/><path d="M1249.3 508.99c0,-129.46 0,-258.93 0,-388.39 0.31,-20.91 21.78,-48.34 51.96,-48.34 32.23,-0 50.23,25.05 50.23,45.5 6.17,-15.38 17.6,-24.38 28.44,-32.99 10.89,-8.66 22.43,-11.03 42.66,-11.03 27.25,0 46.74,15.94 55.01,26.59 13.97,18 19.52,43.05 19.52,75.14l0 205.28c0,21.36 -2.94,40.63 -9.02,57.73 -5.98,17.18 -15.52,30.71 -28.39,40.64 -12.86,9.91 -18.68,10.72 -39.38,10.62 -34.56,-0.17 -57.75,-22.06 -69.81,-54.73 0,20.78 0,51.58 0,72.37 0,28.35 -21.46,51.69 -49.91,51.69 -24.52,0 -49.7,-17.63 -51.31,-50.07zm124.86 -92.64c10.45,0 16.71,-5.13 18.8,-15.57 2.18,-10.35 3.22,-23.17 3.22,-38.36l0 -163.03c0,-15.38 -1.05,-28.2 -3.22,-38.45 -2.09,-10.35 -8.35,-15.48 -18.8,-15.48 -10.73,0 -17.38,5.23 -19.84,15.76 -2.47,10.44 -3.8,23.17 -3.8,38.17l0 163.03c0,15 1.33,27.82 3.8,38.27 2.47,10.44 9.12,15.67 19.84,15.67z"/><path d="M991.71 489.62c-16.34,0 -29.62,-7.04 -39.79,-15.08 -10.23,-8.08 -18.33,-24.39 -24.5,-40.92 0,33.17 -21.95,55.94 -50.59,55.94 -21.73,0 -50.62,-16.53 -50.62,-52.15 0,-130.29 0,-260.59 0,-390.88 0,-18.19 16.15,-46.53 51.11,-46.53 27.2,0 50.1,22.96 50.1,50.19l0 71.69c6.17,-15.38 16.85,-27.52 27.66,-36.15 10.83,-8.64 24.18,-14.05 44.4,-14.05 27.25,0 46.27,13.09 56.24,28.69 12.27,19.2 18.3,43.01 18.3,75.1l0 205.28c0,21.36 -2.95,40.63 -8.74,57.73 -5.89,17.18 -14.92,30.76 -26.97,40.64 -12.16,9.96 -27.73,10.5 -46.62,10.5zm-41.21 -73.26c27.55,-0.28 22.6,-25.72 22.6,-53.93l0 -163.03c0,-31.78 2.2,-53.93 -22.31,-53.93 -25.11,0 -23.36,18.86 -23.36,53.93l0 163.03c0,30.18 -6.84,54.23 23.07,53.93z"/><path d="M1846.85 0c27.37,0 49.56,22.19 49.56,49.56 0,27.37 -22.19,49.56 -49.56,49.56 -27.37,0 -49.56,-22.19 -49.56,-49.56 0,-27.37 22.19,-49.56 49.56,-49.56z"/><path d="M1160 142.44l0 0c27.39,0 49.8,22.41 49.8,49.8l0 247.52c0,27.39 -22.41,49.8 -49.8,49.8l-0 0c-27.39,0 -49.8,-22.41 -49.8,-49.8l0 -247.52c0,-27.39 22.41,-49.8 49.8,-49.8z"/><path d="M1159.02 0c27.37,0 49.56,22.19 49.56,49.56 0,27.37 -22.19,49.56 -49.56,49.56 -27.37,0 -49.57,-22.19 -49.57,-49.56 0,-27.37 22.19,-49.56 49.57,-49.56z"/><path d="M2052.95 492.6c-58.75,-2.85 -97.27,-44.96 -106.17,-67.41 -8.18,-20.66 -13.95,-43.59 -13.95,-73.11l0 -167.68c0,-53.28 51.24,-112.91 125.14,-112.91 68.88,0 123.32,59.33 120.21,112.91l-1.67 28.63c-2.05,35.22 -21.11,52.44 -30.4,62.89 -17.75,25.78 -62.46,38.43 -113.68,37.48l0 55.96c0,7.41 0.43,14.73 1.33,21.84 0.9,7.12 3.04,13.01 6.26,17.66 3.23,4.65 8.55,6.93 15.76,6.93 10.35,0 16.85,-4.45 19.46,-13.48 2.61,-9.01 5.38,-20.7 4.99,-35.13 9.6,-33.81 32.48,-40.07 48.96,-40.07 17.33,-0 48.98,17.26 48.6,43.31 -0.33,22.82 -6.22,40.41 -13.45,56.33 -9.63,21.21 -21.54,29.57 -36.69,42.59 -16.04,13.79 -43.24,24.79 -74.72,23.27zm55.53 -314.86c-15.63,6.33 -29.26,2.21 -34.77,-10.15 -8.35,-18.73 7.27,-27.88 13.21,-36.82 -58.46,-24.62 -105.19,24.08 -78.09,73.7 25.89,47.39 107,26.68 99.66,-26.72z"/><path d="M476.18 165.41c109.6,2.8 160.57,60.15 201.03,69.86 8.02,-18.85 18.65,-25.92 28.16,-44.02 -50.52,-64.23 -396.36,-202.88 -484.01,-49.8 -53.09,92.73 14.69,191.06 102.9,201.16 53.16,6.08 99.23,-18.34 122.52,-43.89 32.39,-35.52 35.96,-74.79 29.39,-133.31zm-76.87 48.42c-17.26,6.42 -28.92,-0.38 -34.05,-11.88 -7.77,-17.43 6.77,-25.94 12.29,-34.26 -54.4,-22.91 -99.12,22.41 -73.91,68.58 26.35,47.22 96.09,27.07 95.67,-22.43z"/><path d="M34.8 320.88c-11.39,10.28 -27.39,28.64 -34.8,42.78 134.25,122.98 370.1,156.7 558.59,88.93 74.78,-26.88 103.26,-52.19 153.67,-87.41 -7.67,-20.51 -20.89,-32.48 -35.68,-45.53 -164.39,110.02 -386.91,123.31 -573.53,39.82 -27.93,-12.49 -44.92,-27.57 -68.24,-38.6z"/></svg></a>
+    <nav class="nav" aria-label="Seções"><a href="/">Inicio</a></nav>
+    <a class="btn btn-p" href="/">Volver al sitio</a>
+  </div>
+</header>
+
+<main>
+<div class="wrap" style="max-width:820px;padding-top:48px;padding-bottom:72px">
+<p class="aj-trilha"><a href="/ajuda/es/">Centro de ayuda</a> › Bybit</p>
+<h1 style="font-size:clamp(28px,4.6vw,40px)">Cómo conectar tu Bybit a BipView (solo lectura)</h1>
+<p class="aj-linguas"><a href="/ajuda/bybit/" hreflang="pt" lang="pt">Português</a> · <strong>Español</strong> · <a href="/ajuda/bybit/en/" hreflang="en" lang="en">English</a></p>
+<p class="lead">La clave de Bybit se crea <strong>en el sitio</strong> de Bybit (bybit.com, en el navegador): la app de Bybit no crea claves. Bybit entrega la <strong>API Key</strong> y el <strong>API Secret</strong>, que en BipView va en el campo <strong>Secret Key</strong>. Antes, Bybit exige el <strong>Google Authenticator</strong> activado; una cuenta creada hace menos de 48 horas puede no lograr crear la clave. BipView solo lee: la clave creada como enseña esta guía (<strong>Read-Only</strong>) no puede operar ni retirar.</p>
+<p class="aj-dica">Las pantallas de abajo son del sitio de Bybit en portugués, en la computadora; en español los botones tienen el nombre equivalente, y aquí va entre paréntesis el nombre en inglés. Una cuenta de Bybit de otro sitio regional (Unión Europea, Turquía, Kazajistán y otros) o de Demo Trading no se conecta: BipView usa la Bybit global.</p>
+<ol class="aj-passos">
+<li class="aj-passo"><span class="aj-num">Paso 1</span><h3>Abre Gerenciamento de API y haz clic en Criar nova chave</h3><p>El botón abre la página de claves de tu cuenta (entra con tu cuenta de Bybit si te lo pide). Por el menú: pasa el mouse por el <strong>ícono del perfil</strong>, arriba a la derecha, y haz clic en <strong>Conta</strong> (Cuenta); en la página de la cuenta, en el menú de la izquierda, haz clic en <strong>API</strong>. En la página <strong>Gerenciamento de API</strong>, haz clic en <strong>Criar nova chave</strong> (Crear nueva clave), el botón naranja a la derecha. No uses <strong>Conexão rápida com Agente de IA</strong> (conexión rápida con agente de IA), al lado.</p><p class="aj-acao"><a class="aj-botao" href="https://www.bybit.com/app/user/api-management" target="_blank" rel="noopener">Abrir el API Management de Bybit ↗</a></p><figure class="aj-fig"><a href="/ajuda/bybit/img/01-icone-perfil-num.jpg" target="_blank" rel="noopener"><img src="/ajuda/bybit/img/01-icone-perfil-num.jpg" width="800" height="125" loading="lazy" alt="① Pasa el mouse por el ícono del perfil, arriba a la derecha"></a><figcaption>① Pasa el mouse por el ícono del perfil, arriba a la derecha</figcaption></figure><figure class="aj-fig"><a href="/ajuda/bybit/img/02-menu-perfil-num.jpg" target="_blank" rel="noopener"><img src="/ajuda/bybit/img/02-menu-perfil-num.jpg" width="800" height="830" loading="lazy" alt="② En el menú del perfil, Conta"></a><figcaption>② En el menú del perfil, Conta</figcaption></figure><figure class="aj-fig"><a href="/ajuda/bybit/img/03-api-management-num.jpg" target="_blank" rel="noopener"><img src="/ajuda/bybit/img/03-api-management-num.jpg" width="800" height="442" loading="lazy" alt="③ En el menú de la izquierda, API; el botón Criar nova chave está a la derecha"></a><figcaption>③ En el menú de la izquierda, API; el botón Criar nova chave está a la derecha</figcaption></figure><div class="aj-aviso"><p><strong>¿Apareció “Verificación de seguridad: es necesario configurar la Autenticación 2FA de Google”?</strong> Bybit no crea claves de API sin el Google Authenticator activado en la cuenta. Haz clic en <strong>Configurar</strong>, activa el Google Authenticator (pide la app en el celular y un código del correo) y vuelve a este paso.</p><figure class="aj-fig"><a href="/ajuda/bybit/img/04-2fa-necessaria-num.jpg" target="_blank" rel="noopener"><img src="/ajuda/bybit/img/04-2fa-necessaria-num.jpg" width="800" height="466" loading="lazy" alt="Si aparece: Bybit exige el Google Authenticator antes de la clave"></a><figcaption>Si aparece: Bybit exige el Google Authenticator antes de la clave</figcaption></figure></div></li>
+<li class="aj-passo aj-alerta"><span class="aj-num">Paso 2 · ⚠️</span><h3>Elige las claves generadas por el sistema</h3><p>En la ventana para elegir el tipo de clave, <strong>Selecione o seu tipo de Chave API</strong> (Select Your API Key Type), elige la primera opción, <strong>Chaves API geradas por sistema</strong> (System-generated API Keys). <strong>No</strong> elijas la segunda, <strong>Chaves de API geradas automaticamente</strong> (Self-generated API Keys): a pesar del nombre en portugués, es la opción en la que tú mismo generas las claves en un programa aparte (RSA); no entrega un API Secret y <strong>no funciona en BipView</strong>.</p><figure class="aj-fig"><a href="/ajuda/bybit/img/04-tipo-sistema-num.jpg" target="_blank" rel="noopener"><img src="/ajuda/bybit/img/04-tipo-sistema-num.jpg" width="800" height="700" loading="lazy" alt="④ Chaves API geradas por sistema (System-generated) · ✕ No elijas Chaves de API geradas automaticamente (Self-generated)"></a><figcaption>④ Chaves API geradas por sistema (System-generated) · ✕ No elijas Chaves de API geradas automaticamente (Self-generated)</figcaption></figure></li>
+<li class="aj-passo"><span class="aj-num">Paso 3</span><h3>Uso, nombre y permiso de solo lectura</h3><p>En el formulario de la clave nueva: en el uso de la clave, deja <strong>Transação API</strong> (API Transaction), que ya viene marcada; <strong>no</strong> elijas <strong>Conectar-se a apps de terceiros</strong> (Connect to Third-Party Applications), que es para las aplicaciones socias de Bybit, y BipView no es una de ellas. En <strong>Nome da chave API</strong>, un nombre que reconozcas, por ejemplo <strong>BipView lectura</strong>. En los permisos, deja <strong>Somente leitura</strong> (Read-Only), nunca <strong>Leitura e gravação</strong> (Read-Write).</p><figure class="aj-fig"><a href="/ajuda/bybit/img/05-uso-nome-num.jpg" target="_blank" rel="noopener"><img src="/ajuda/bybit/img/05-uso-nome-num.jpg" width="800" height="231" loading="lazy" alt="⑤ Transação API (API Transaction) · ⑥ El nombre de la clave · ⑦ Somente leitura (Read-Only) · ✕ No elijas Conectar-se a apps de terceiros (Third-Party Applications) ni Leitura e gravação (Read-Write)"></a><figcaption>⑤ Transação API (API Transaction) · ⑥ El nombre de la clave · ⑦ Somente leitura (Read-Only) · ✕ No elijas Conectar-se a apps de terceiros (Third-Party Applications) ni Leitura e gravação (Read-Write)</figcaption></figure></li>
+<li class="aj-passo aj-alerta"><span class="aj-num">Paso 4 · ⚠️</span><h3>Las dos IP de BipView: sin ellas la clave vence en 3 meses</h3><p>Justo abajo, Bybit ya viene marcada en <strong>Sem restrição de IP</strong> (No IP restriction). Cámbialo a <strong>Apenas IPs com permissão podem acessar a OpenAPI</strong> (Only IPs with permissions granted are allowed to access the OpenAPI) y pega las <strong>dos</strong> IP de BipView en la casilla, separadas por coma: <code>56.126.82.105,56.126.93.102</code> (las mismas que muestra la pantalla de conectar de la app, con botón de copiar). La propia Bybit avisa que, sin IP, la cuenta queda en riesgo y la clave expira en 3 meses; con las dos IP, la validez es permanente. Cambiar la contraseña de Bybit también vence la clave, en hasta 7 días: entonces hay que crear otra.</p><figure class="aj-fig"><a href="/ajuda/bybit/img/07-ips-num.jpg" target="_blank" rel="noopener"><img src="/ajuda/bybit/img/07-ips-num.jpg" width="800" height="200" loading="lazy" alt="⑧ Apenas IPs com permissão… (Only IPs with permissions granted) · ⑨ Las dos IP de BipView, separadas por coma · ✕ No dejes Sem restrição de IP (No IP restriction)"></a><figcaption>⑧ Apenas IPs com permissão… (Only IPs with permissions granted) · ⑨ Las dos IP de BipView, separadas por coma · ✕ No dejes Sem restrição de IP (No IP restriction)</figcaption></figure></li>
+<li class="aj-passo"><span class="aj-num">Paso 5</span><h3>Marca las casillas de consulta y haz clic en Enviar</h3><p>Más abajo, en la tabla de permisos, toda la columna es de solo lectura (Somente leitura). A la izquierda, marca <strong>Trading Unificado</strong>, <strong>Negociar fiat</strong> y <strong>Ativos</strong>: cada una marca las casillas de su línea. A la derecha, marca también <strong>Produtos do Earn</strong> y <strong>Publicações do ByX</strong>. Ninguna de ellas opera ni mueve nada. La casilla <strong>Saque</strong> (retiro) queda apagada, porque la propia Bybit no la habilita en una clave de solo lectura; por eso <strong>Ativos</strong> muestra un cuadradito en lugar del visto, y así está bien. Al final de la página, haz clic en <strong>Enviar</strong>.</p><figure class="aj-fig"><a href="/ajuda/bybit/img/06-permissoes-num.jpg" target="_blank" rel="noopener"><img src="/ajuda/bybit/img/06-permissoes-num.jpg" width="800" height="435" loading="lazy" alt="⑩ Marca Trading Unificado (las cuatro casillas de la línea vienen juntas) y Produtos do Earn"></a><figcaption>⑩ Marca Trading Unificado (las cuatro casillas de la línea vienen juntas) y Produtos do Earn</figcaption></figure><figure class="aj-fig"><a href="/ajuda/bybit/img/06b-negociar-fiat-num.jpg" target="_blank" rel="noopener"><img src="/ajuda/bybit/img/06b-negociar-fiat-num.jpg" width="800" height="340" loading="lazy" alt="⑩ Marca Negociar fiat (las cinco casillas de la línea vienen juntas)"></a><figcaption>⑩ Marca Negociar fiat (las cinco casillas de la línea vienen juntas)</figcaption></figure><figure class="aj-fig"><a href="/ajuda/bybit/img/06c-saque-enviar-num.jpg" target="_blank" rel="noopener"><img src="/ajuda/bybit/img/06c-saque-enviar-num.jpg" width="800" height="490" loading="lazy" alt="⑩ Marca Ativos y Publicações do ByX · En el recuadro, Saque (retiro) apagada: no se puede marcar · ⑪ Enviar"></a><figcaption>⑩ Marca Ativos y Publicações do ByX · En el recuadro, Saque (retiro) apagada: no se puede marcar · ⑪ Enviar</figcaption></figure></li>
+<li class="aj-passo"><span class="aj-num">Paso 6</span><h3>Confirma y copia la API Key y el API Secret</h3><p>En la ventana <strong>Verificação de segurança</strong> (Security Verification), escribe los 6 dígitos del <strong>Código de verificação do Google</strong> (Google 2FA Code), que muestra la app Google Authenticator. Si Bybit también pide un código por correo, solicítalo y escríbelo. En la ventana siguiente, copia la <strong>API Key</strong> y el <strong>API Secret</strong> y deja la ventana abierta hasta pegarlos en BipView: <strong>el API Secret solo aparece esta vez</strong>. Quien cierre sin copiar borra la clave y crea otra. No hay captura de esta pantalla aquí, a propósito: muestra el secreto.</p><figure class="aj-fig"><a href="/ajuda/bybit/img/08-verificacao-num.jpg" target="_blank" rel="noopener"><img src="/ajuda/bybit/img/08-verificacao-num.jpg" width="800" height="379" loading="lazy" alt="⑫ La Verificação de segurança (Security Verification): los 6 dígitos de Google Authenticator"></a><figcaption>⑫ La Verificação de segurança (Security Verification): los 6 dígitos de Google Authenticator</figcaption></figure></li>
+<li class="aj-passo"><span class="aj-num">Paso 7</span><h3>Pégalos en BipView</h3><p>En la app BipView: <strong>Mis Conexiones</strong> → <strong>Nueva conexión</strong> → <strong>Exchanges</strong> → <strong>Bybit</strong>. Pega la <strong>API Key</strong> en el primer campo y el <strong>API Secret</strong> en el segundo (<strong>Secret Key</strong>), y toca <strong>Conectar</strong>. Si tu app todavía muestra la pestaña Billeteras → Gestionar exchanges → Conectar exchange, es la versión anterior: ese es el camino hasta que llegue la actualización, y el resto de esta guía vale igual.</p><figure class="aj-fig"><a href="/ajuda/bybit/img/09-app-nova-conexao.jpg" target="_blank" rel="noopener"><img src="/ajuda/bybit/img/09-app-nova-conexao.jpg" width="480" height="1018" loading="lazy" alt="① En BipView: Mis Conexiones → Nueva conexión → Exchanges. Toca Bybit"></a><figcaption>① En BipView: Mis Conexiones → Nueva conexión → Exchanges. Toca Bybit</figcaption></figure></li>
+</ol>
+<h2>Después de conectar: lo que entra en el total</h2>
+<p>La app confirma que Bybit quedó conectada y la primera lectura sale en segundos; mientras no termina, la pantalla Mis Conexiones muestra Bybit como “esperando la 1ª lectura” (en la versión anterior de la app, “READ_ONLY · esperando 1er sync”). <strong>Lo que entra en el total:</strong> hoy BipView lee <strong>solo la Cuenta de Trading Unificada</strong> de Bybit, moneda por moneda, con la ganancia o pérdida abierta de los futuros. Lo que está en la <strong>Cuenta de Fondos</strong> (donde caen el depósito, el P2P, los reales y la compra con un clic), en <strong>Bybit Earn</strong>, en el <strong>bot de trading</strong>, en el <strong>copy trading</strong> y en las <strong>subcuentas</strong> todavía no entra: quien dejó todo en la Cuenta de Fondos ve Bybit conectada y sin saldo. Compara con el saldo de la Cuenta de Trading Unificada, no con el valor total de activos. Si una pérdida abierta supera el saldo de una moneda, aparece en “Lo que debes”, en rojo, ya descontada del total: no es un error. Estamos trabajando para leer las otras cuentas.</p>
+<h2>Si aparece un error</h2>
+<table class="aj-tab"><thead><tr><th>Mensaje en la app</th><th>Qué hacer</th></tr></thead><tbody><tr><td>“No fue posible conectar. Revisa los datos e inténtalo de nuevo.”</td><td>El servidor no guardó la clave: internet, sesión o servidor. No es Bybit rechazando. Inténtalo de nuevo.</td></tr><tr><td>“El exchange rechazó esta clave.” (en la versión anterior de la app: “el exchange rechazó la clave: libera las IP de BipView, marca solo lectura y conecta de nuevo con clave y secreto completos”)</td><td>Bybit leyó y rechazó. Revisa: clave <strong>System-generated</strong> (paso 2), <strong>Read-Only</strong> (paso 3), las <strong>dos</strong> IP (paso 4), las casillas marcadas (paso 5) y los dos campos pegados enteros, sin cambiarlos de lugar (paso 7). Una clave de Demo Trading o de un sitio regional de Bybit también es rechazada. Si hace falta, crea otra clave y conecta de nuevo.</td></tr><tr><td>“El exchange no respondió.” (en la versión anterior: “el exchange no respondió en la primera lectura — lo intentamos de nuevo solos”)</td><td>No es la clave: es la red, el límite de pedidos o Bybit fuera de servicio. BipView vuelve a intentar solo.</td></tr><tr><td>“Ningún saldo en este exchange en la última lectura.”</td><td>La lectura salió bien, pero la <strong>Cuenta de Trading Unificada</strong> está vacía: el saldo está en la Cuenta de Fondos, en Earn, en el bot, en el copy trading o en una subcuenta, que BipView todavía no lee. No es un error de la clave.</td></tr><tr><td>“sin sincronizar hace N días — revisa la clave” (versión anterior de la app)</td><td>21 días sin lectura: la clave puede haber vencido (creada sin IP, o cambiaste la contraseña de Bybit) o haber sido borrada. Crea otra, con las dos IP, y conecta de nuevo.</td></tr></tbody></table>
+<h2>Seguridad</h2>
+<p>Con <strong>Read-Only</strong>, BipView no puede operar ni retirar. La clave se cifra antes de guardarse y nunca aparece en pantalla. Para detener la lectura, borra la clave en <strong>API Management</strong>, en Bybit: BipView deja de leer en la próxima lectura. BipView nunca te pide el API Secret por mensaje, correo o teléfono: solo entra en la pantalla de conexión de la app.</p>
+
+<p>Escribe a <strong>suporte@bipview.com</strong> contando en qué paso te quedaste. Nunca envíes tu Secret (el secreto de la clave de API), ni siquiera a nosotros.</p>
+<p class="aj-atualizado">Actualizado el 8 de noviembre de 2026.</p>
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <svg class="lockup-foot" viewBox="0 0 2572.77 559.06" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" ><path d="M1846.86 142.44l0 0c27.39,0 49.8,22.41 49.8,49.8l0 247.52c0,27.39 -22.41,49.8 -49.8,49.8l-0 0c-27.39,0 -49.8,-22.41 -49.8,-49.8l0 -247.52c0,-27.39 22.41,-49.8 49.8,-49.8z"/><path d="M1579.01 432.57c-16.34,-101.71 -32.68,-203.43 -49.02,-305.15 -4.45,-30.22 17.33,-55.17 46.28,-55.17 28.91,0.03 49.89,20.97 48.51,33.44l20.06 173.78c7.37,-56.63 16.81,-113.26 24.18,-169.9 8.14,-24.82 24.24,-37.33 47.92,-37.33 24.02,0 53.34,20.3 49.52,42.37 -17.64,101.93 -36.53,211.51 -53.81,317.27 1.8,20.79 -29.3,57.66 -68.09,57.66 -29.55,2.9 -61.86,-26.93 -65.56,-56.99z"/><path d="M2251.54 435.71c-12.81,-106.23 -23.85,-212.45 -36.65,-318.68 -3.94,-19.83 17.78,-45.55 38.95,-44.78 24.63,-0.77 42.34,15 45.5,35.69l21.26 188.58c6.62,-61.4 13.26,-122.79 19.88,-184.19 2.92,-20.11 19.68,-40.08 53.02,-40.08 24.62,0 46.86,17.49 52.26,43.19l23.15 181.08c6.33,-61.5 12.66,-123.01 18.98,-184.52 2.18,-22.27 24.55,-42.15 44.59,-39.75 29.68,2.57 41.87,24.39 40.13,41.51l-39.12 323.64c-0.76,30.2 -27.12,52.15 -60.43,52.15 -26.79,0.02 -58.19,-28.53 -58.09,-48.15l-23.15 -160.5c-6.32,50.54 -12.65,101.08 -18.97,151.61 -1.08,20.94 -19.96,57.06 -59.12,57.04 -42.49,0.02 -62.29,-34.39 -62.18,-53.85z"/><path d="M1249.3 508.99c0,-129.46 0,-258.93 0,-388.39 0.31,-20.91 21.78,-48.34 51.96,-48.34 32.23,-0 50.23,25.05 50.23,45.5 6.17,-15.38 17.6,-24.38 28.44,-32.99 10.89,-8.66 22.43,-11.03 42.66,-11.03 27.25,0 46.74,15.94 55.01,26.59 13.97,18 19.52,43.05 19.52,75.14l0 205.28c0,21.36 -2.94,40.63 -9.02,57.73 -5.98,17.18 -15.52,30.71 -28.39,40.64 -12.86,9.91 -18.68,10.72 -39.38,10.62 -34.56,-0.17 -57.75,-22.06 -69.81,-54.73 0,20.78 0,51.58 0,72.37 0,28.35 -21.46,51.69 -49.91,51.69 -24.52,0 -49.7,-17.63 -51.31,-50.07zm124.86 -92.64c10.45,0 16.71,-5.13 18.8,-15.57 2.18,-10.35 3.22,-23.17 3.22,-38.36l0 -163.03c0,-15.38 -1.05,-28.2 -3.22,-38.45 -2.09,-10.35 -8.35,-15.48 -18.8,-15.48 -10.73,0 -17.38,5.23 -19.84,15.76 -2.47,10.44 -3.8,23.17 -3.8,38.17l0 163.03c0,15 1.33,27.82 3.8,38.27 2.47,10.44 9.12,15.67 19.84,15.67z"/><path d="M991.71 489.62c-16.34,0 -29.62,-7.04 -39.79,-15.08 -10.23,-8.08 -18.33,-24.39 -24.5,-40.92 0,33.17 -21.95,55.94 -50.59,55.94 -21.73,0 -50.62,-16.53 -50.62,-52.15 0,-130.29 0,-260.59 0,-390.88 0,-18.19 16.15,-46.53 51.11,-46.53 27.2,0 50.1,22.96 50.1,50.19l0 71.69c6.17,-15.38 16.85,-27.52 27.66,-36.15 10.83,-8.64 24.18,-14.05 44.4,-14.05 27.25,0 46.27,13.09 56.24,28.69 12.27,19.2 18.3,43.01 18.3,75.1l0 205.28c0,21.36 -2.95,40.63 -8.74,57.73 -5.89,17.18 -14.92,30.76 -26.97,40.64 -12.16,9.96 -27.73,10.5 -46.62,10.5zm-41.21 -73.26c27.55,-0.28 22.6,-25.72 22.6,-53.93l0 -163.03c0,-31.78 2.2,-53.93 -22.31,-53.93 -25.11,0 -23.36,18.86 -23.36,53.93l0 163.03c0,30.18 -6.84,54.23 23.07,53.93z"/><path d="M1846.85 0c27.37,0 49.56,22.19 49.56,49.56 0,27.37 -22.19,49.56 -49.56,49.56 -27.37,0 -49.56,-22.19 -49.56,-49.56 0,-27.37 22.19,-49.56 49.56,-49.56z"/><path d="M1160 142.44l0 0c27.39,0 49.8,22.41 49.8,49.8l0 247.52c0,27.39 -22.41,49.8 -49.8,49.8l-0 0c-27.39,0 -49.8,-22.41 -49.8,-49.8l0 -247.52c0,-27.39 22.41,-49.8 49.8,-49.8z"/><path d="M1159.02 0c27.37,0 49.56,22.19 49.56,49.56 0,27.37 -22.19,49.56 -49.56,49.56 -27.37,0 -49.57,-22.19 -49.57,-49.56 0,-27.37 22.19,-49.56 49.57,-49.56z"/><path d="M2052.95 492.6c-58.75,-2.85 -97.27,-44.96 -106.17,-67.41 -8.18,-20.66 -13.95,-43.59 -13.95,-73.11l0 -167.68c0,-53.28 51.24,-112.91 125.14,-112.91 68.88,0 123.32,59.33 120.21,112.91l-1.67 28.63c-2.05,35.22 -21.11,52.44 -30.4,62.89 -17.75,25.78 -62.46,38.43 -113.68,37.48l0 55.96c0,7.41 0.43,14.73 1.33,21.84 0.9,7.12 3.04,13.01 6.26,17.66 3.23,4.65 8.55,6.93 15.76,6.93 10.35,0 16.85,-4.45 19.46,-13.48 2.61,-9.01 5.38,-20.7 4.99,-35.13 9.6,-33.81 32.48,-40.07 48.96,-40.07 17.33,-0 48.98,17.26 48.6,43.31 -0.33,22.82 -6.22,40.41 -13.45,56.33 -9.63,21.21 -21.54,29.57 -36.69,42.59 -16.04,13.79 -43.24,24.79 -74.72,23.27zm55.53 -314.86c-15.63,6.33 -29.26,2.21 -34.77,-10.15 -8.35,-18.73 7.27,-27.88 13.21,-36.82 -58.46,-24.62 -105.19,24.08 -78.09,73.7 25.89,47.39 107,26.68 99.66,-26.72z"/><path d="M476.18 165.41c109.6,2.8 160.57,60.15 201.03,69.86 8.02,-18.85 18.65,-25.92 28.16,-44.02 -50.52,-64.23 -396.36,-202.88 -484.01,-49.8 -53.09,92.73 14.69,191.06 102.9,201.16 53.16,6.08 99.23,-18.34 122.52,-43.89 32.39,-35.52 35.96,-74.79 29.39,-133.31zm-76.87 48.42c-17.26,6.42 -28.92,-0.38 -34.05,-11.88 -7.77,-17.43 6.77,-25.94 12.29,-34.26 -54.4,-22.91 -99.12,22.41 -73.91,68.58 26.35,47.22 96.09,27.07 95.67,-22.43z"/><path d="M34.8 320.88c-11.39,10.28 -27.39,28.64 -34.8,42.78 134.25,122.98 370.1,156.7 558.59,88.93 74.78,-26.88 103.26,-52.19 153.67,-87.41 -7.67,-20.51 -20.89,-32.48 -35.68,-45.53 -164.39,110.02 -386.91,123.31 -573.53,39.82 -27.93,-12.49 -44.92,-27.57 -68.24,-38.6z"/></svg>
+      <p style="margin-top:14px;max-width:38ch">Espejo de su portafolio cripto. Solo lectura, siempre.</p>
+    </div>
+    <div>
+      <h4>Producto</h4>
+      <ul><li><a href="/es/#seguranca">Seguridad</a></li><li><a href="/es/#para-quem">Para quién</a></li><li><a href="/es/#planos">Planes</a></li><li><a href="/es/#faq">Preguntas</a></li></ul>
+    </div>
+    <div>
+      <h4>Empresa</h4>
+      <ul><li><a href="/privacidade">Política de privacidad</a></li><li><a href="/termos">Términos de uso</a></li><li><a href="mailto:contato@bipview.com">contato@bipview.com</a></li></ul>
+    </div>
+    <p class="legal">BIPVIEW SISTEMAS LTDA · CNPJ 63.306.772/0001-76 · Porto Alegre, RS. BipView es un espejo de portafolio: no es un exchange, no custodia activos y no hace recomendaciones de inversión. Los valores fiscales son estimaciones. © 2026 BipView. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+</body>
+</html>
