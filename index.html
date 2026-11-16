@@ -22,7 +22,8 @@
     (function () {
       var l = (navigator.language || 'en').slice(0, 2).toLowerCase();
       var destino = (l === 'pt' || l === 'es') ? l : 'en';
-      location.replace('/' + destino + '/');
+      // leva junto o que veio no link (a etiqueta de origem `o` e as utm_*): sem isso a campanha se perdia aqui
+      location.replace('/' + destino + '/' + location.search + location.hash);
     })();
   </script>
 </head>

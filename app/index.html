@@ -7,8 +7,11 @@
 <title>BipView — abrindo o app</title>
 <!-- ATALHO bipview.com/app -> app web de PRD (MKT, 27/09/2026). Existe para quem esta no iPhone antes de o app
      chegar a App Store (inscricao da Apple pendente) abrir o BipView pelo Safari. Sem rastreador, fora do sitemap.
-     Quando o PRODUTO der um dominio proprio ao app web (ex.: app.bipview.com), trocar o destino aqui. -->
-<meta http-equiv="refresh" content="0; url=https://app.bipview.com/">
+     16/11/2026: o atalho leva ao app a etiqueta de origem. Se o link de entrada trouxe uma (a chave `o` ou as
+     utm_*), vai ela; senao vai a chave do proprio atalho (atalho-app, em catalogo/origens.csv). Nada e guardado
+     nem enviado daqui: /origem.js so monta o endereco. Sem JavaScript, o redirecionamento abaixo leva a chave
+     do atalho depois de 1 segundo. -->
+<meta http-equiv="refresh" content="1; url=https://app.bipview.com/?o=atalho-app">
 <style>
   :root { color-scheme: dark; }
   body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #0a0b0d; color: #e8eaed;
@@ -17,7 +20,14 @@
 </style>
 </head>
 <body>
-<p>Abrindo o BipView… Se não abrir, <a href="https://app.bipview.com/">toque aqui</a>.</p>
-<script>location.replace('https://app.bipview.com/');</script>
+<p>Abrindo o BipView… Se não abrir, <a href="https://app.bipview.com/?o=atalho-app" data-loja="web">toque aqui</a>.</p>
+<script src="/origem.js"></script>
+<script>
+(function () {
+  var destino = 'https://app.bipview.com/?o=atalho-app';
+  try { destino = window.bipviewOrigem.montar(destino, 'web', window.bipviewOrigem.entrada(location.search)); } catch (e) {}
+  location.replace(destino);
+})();
+</script>
 </body>
 </html>

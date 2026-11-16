@@ -12,7 +12,7 @@
     (function () {
       var l = (navigator.language || 'en').slice(0, 2).toLowerCase();
       var destino = (l === 'pt' || l === 'es') ? l : 'en';
-      location.replace('/' + destino + '/termos.html');
+      location.replace('/' + destino + '/termos.html' + location.search + location.hash);
     })();
   </script>
   <meta http-equiv="refresh" content="0;url=/pt/termos.html">

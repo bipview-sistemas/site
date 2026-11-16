@@ -429,8 +429,8 @@ document.addEventListener('DOMContentLoaded', function () {
     <h2>Your portfolio, under your command.</h2>
     <p class="lead">Use it now in your browser or download the app, connect your first source in two minutes and see everything in one place. <b>14 days of the TRIAL plan, no card.</b></p>
     <div class="cta">
-      <a class="btn btn-p" href="https://app.bipview.com/" data-loja="web">Use it in your browser</a>
-      <a class="btn btn-p" href="https://play.google.com/store/apps/details?id=com.bipview.app&amp;referrer=utm_source%3Dsite%26utm_medium%3Dbotao%26utm_campaign%3Dorganico" data-loja="android">Get it on Google Play</a>
+      <a class="btn btn-p" href="https://app.bipview.com/?o=site-en" data-loja="web">Use it in your browser</a>
+      <a class="btn btn-p" href="https://play.google.com/store/apps/details?id=com.bipview.app&amp;referrer=o%3Dsite-en%26utm_source%3Dsite%26utm_medium%3Dbotao%26utm_campaign%3Dorganico" data-loja="android">Get it on Google Play</a>
       <a class="btn btn-p" href="https://apps.apple.com/br/app/bipview/id6825533328" data-loja="ios">Download on the App Store</a>
     </div>
     <p class="txt" style="font-size:14px">Android: on Google Play. iPhone: on the App Store, creating your account or signing in with email and password. Computer or any phone: in your browser, nothing to install — and you can subscribe right there, by card. It's the same account on your phone and on the web. If you created it with Google, you can also sign in with a code sent to your email in the browser and on Android; on iPhone, for now, use the browser.</p>
@@ -457,5 +457,9 @@ document.addEventListener('DOMContentLoaded', function () {
   </div>
 </footer>
 
+<!-- 6) a etiqueta do link de entrada (a chave `o` do catalogo de origens e as utm_*) vai aos botoes de baixar.
+     site/origem.js: nao guarda nada no navegador e nao manda nada a ninguem; so reescreve o endereco dos botoes.
+     Cada botao ja sai daqui com a chave da pagina (site-pt; a montagem troca por site-es e site-en). -->
+<script src="/origem.js" defer></script>
 </body>
 </html>

@@ -429,8 +429,8 @@ document.addEventListener('DOMContentLoaded', function () {
     <h2>Seu portfólio está sob seu domínio.</h2>
     <p class="lead">Use agora no navegador ou baixe o app, conecte a primeira fonte em dois minutos e veja tudo num lugar só. <b>14 dias do plano TESTE, sem cartão.</b></p>
     <div class="cta">
-      <a class="btn btn-p" href="https://app.bipview.com/" data-loja="web">Usar no navegador</a>
-      <a class="btn btn-p" href="https://play.google.com/store/apps/details?id=com.bipview.app&amp;referrer=utm_source%3Dsite%26utm_medium%3Dbotao%26utm_campaign%3Dorganico" data-loja="android">Baixar na Google Play</a>
+      <a class="btn btn-p" href="https://app.bipview.com/?o=site-pt" data-loja="web">Usar no navegador</a>
+      <a class="btn btn-p" href="https://play.google.com/store/apps/details?id=com.bipview.app&amp;referrer=o%3Dsite-pt%26utm_source%3Dsite%26utm_medium%3Dbotao%26utm_campaign%3Dorganico" data-loja="android">Baixar na Google Play</a>
       <a class="btn btn-p" href="https://apps.apple.com/br/app/bipview/id6825533328" data-loja="ios">Baixar na App Store</a>
     </div>
     <p class="txt" style="font-size:14px">Android: na Google Play. iPhone: na App Store, criando a conta ou entrando com e-mail e senha. Computador ou qualquer celular: no navegador, sem instalar nada — e a assinatura sai ali mesmo, no cartão. É a mesma conta no celular e na web. Quem criou com o Google entra no navegador e no Android também com um código no e-mail; no iPhone, por enquanto, use o navegador.</p>
@@ -457,5 +457,9 @@ document.addEventListener('DOMContentLoaded', function () {
   </div>
 </footer>
 
+<!-- 6) a etiqueta do link de entrada (a chave `o` do catalogo de origens e as utm_*) vai aos botoes de baixar.
+     site/origem.js: nao guarda nada no navegador e nao manda nada a ninguem; so reescreve o endereco dos botoes.
+     Cada botao ja sai daqui com a chave da pagina (site-pt; a montagem troca por site-es e site-en). -->
+<script src="/origem.js" defer></script>
 </body>
 </html>
