@@ -27,8 +27,9 @@
 
   // Sobe quando o aviso ou a lista de cookies mudar de um jeito que pede escolha nova (todo mundo e perguntado de novo).
   var VERSAO_AVISO = '2026-10-09';
-  // Versao da Politica de Privacidade que o aviso descreve (vai junto no registro).
-  var POLITICA = '1.4';
+  // Versao da Politica de Privacidade que o aviso descreve (vai junto no registro). 1.5 desde 17/11/2026 (S16-mkt),
+  // na mesma publicacao das paginas da v1.5. Nao pergunta de novo a ninguem: quem pergunta de novo e o VERSAO_AVISO.
+  var POLITICA = '1.5';
   // Endereco do registro na API da BipView. VAZIO = nao manda nada (a escolha fica so no cookie do navegador).
   // Preencher quando o PRODUTO publicar a rota (pedido no BALDE-ENTRADA__mkt.md, 09/10).
   var ENDPOINT = '';
